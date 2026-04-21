@@ -10,7 +10,7 @@ ALLOWED_OPS = {"set", "box", "box_hollow", "line"}
 
 
 def _normalize_block_name(block_id: str) -> str:
-    """Normalize namespaced/stateful block ids (e.g. minecraft:stone[...]) to base name."""
+    """Normalize block ids (e.g. stone or minecraft:stone[...]) to base block name."""
     name = block_id.split(":", 1)[-1]
     return name.split("[", 1)[0]
 
@@ -86,11 +86,15 @@ def main() -> int:
     """Run BuildSpec validation CLI and return process exit code."""
     parser = argparse.ArgumentParser(description="Validate BuildSpec JSON")
     parser.add_argument("buildspec", help="Path to BuildSpec JSON file")
+    parser.add_argument(
+        "--catalog",
+        default=str(Path(__file__).resolve().parents[1] / "data" / "block_catalog.json"),
+        help="Path to block catalog JSON file (default: data/block_catalog.json in repo root)",
+    )
     args = parser.parse_args()
 
     buildspec_path = Path(args.buildspec)
-    repo_root = Path(__file__).resolve().parents[1]
-    block_catalog_path = repo_root / "data" / "block_catalog.json"
+    block_catalog_path = Path(args.catalog)
 
     try:
         with buildspec_path.open("r", encoding="utf-8") as f:
