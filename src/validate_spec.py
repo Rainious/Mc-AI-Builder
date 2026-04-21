@@ -10,7 +10,7 @@ ALLOWED_OPS = {"set", "box", "box_hollow", "line"}
 
 
 def _normalize_block_name(block_id: str) -> str:
-    """Extract base block name from a block id string."""
+    """Normalize namespaced/stateful block ids (e.g. minecraft:stone[...]) to base name."""
     name = block_id.split(":", 1)[-1]
     return name.split("[", 1)[0]
 
@@ -28,11 +28,13 @@ def load_block_catalog(catalog_path: Path) -> set[str]:
     if not isinstance(catalog, list):
         raise RuntimeError(f"Invalid block catalog format in {catalog_path}: expected a JSON array")
 
-    allowed = {
-        item.get("name")
-        for item in catalog
-        if isinstance(item, dict) and isinstance(item.get("name"), str)
-    }
+    allowed: set[str] = set()
+    for item in catalog:
+        if not isinstance(item, dict):
+            continue
+        name = item.get("name")
+        if isinstance(name, str):
+            allowed.add(name)
     if not allowed:
         raise RuntimeError(f"No valid block names found in block catalog: {catalog_path}")
     return allowed
