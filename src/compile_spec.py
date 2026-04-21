@@ -28,7 +28,7 @@ def _require_point(value: Any, field_name: str, op_index: int) -> tuple[int, int
         raise CompileSpecError(f"ops[{op_index}].{field_name} must be an array of 3 integers")
     if not all(isinstance(v, int) for v in value):
         raise CompileSpecError(f"ops[{op_index}].{field_name} must contain only integers")
-    return int(value[0]), int(value[1]), int(value[2])
+    return value[0], value[1], value[2]
 
 
 def _require_size(spec: dict[str, Any]) -> tuple[int, int, int]:
@@ -146,7 +146,7 @@ def _iter_line(
     changed_axes = sum(delta != 0 for delta in (dx, dy, dz))
     if changed_axes > 1:
         raise CompileSpecError(
-            f"ops[{op_index}] line must be axis-aligned: from={list(start)} to={list(end)}"
+            f"ops[{op_index}] line must be axis-aligned: from={start} to={end}"
         )
 
     if changed_axes == 0:
@@ -224,7 +224,7 @@ def compile_buildspec(spec: Any) -> list[dict[str, Any]]:
         )
 
     placements: list[dict[str, Any]] = []
-    # Keep deterministic output ordering to make compiled JSON stable and diff-friendly.
+    # Keep deterministic output ordering (x, y, z) for stable, diff-friendly JSON.
     for (x, y, z), block in sorted(placed.items()):
         placements.append({"x": x, "y": y, "z": z, "block": block})
     return placements
