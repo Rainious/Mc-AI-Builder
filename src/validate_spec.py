@@ -10,11 +10,13 @@ ALLOWED_OPS = {"set", "box", "box_hollow", "line"}
 
 
 def _normalize_block_name(block_id: str) -> str:
+    """Extract base block name from a block id string."""
     name = block_id.split(":", 1)[-1]
     return name.split("[", 1)[0]
 
 
 def load_block_catalog(catalog_path: Path) -> set[str]:
+    """Load block catalog JSON and return allowed block names."""
     try:
         with catalog_path.open("r", encoding="utf-8") as f:
             catalog = json.load(f)
@@ -37,6 +39,7 @@ def load_block_catalog(catalog_path: Path) -> set[str]:
 
 
 def validate_buildspec(spec: Any, allowed_blocks: set[str]) -> list[str]:
+    """Validate BuildSpec structure and content, returning error messages."""
     errors: list[str] = []
 
     if not isinstance(spec, dict):
@@ -78,6 +81,7 @@ def validate_buildspec(spec: Any, allowed_blocks: set[str]) -> list[str]:
 
 
 def main() -> int:
+    """Run BuildSpec validation CLI and return process exit code."""
     parser = argparse.ArgumentParser(description="Validate BuildSpec JSON")
     parser.add_argument("buildspec", help="Path to BuildSpec JSON file")
     args = parser.parse_args()
