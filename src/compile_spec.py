@@ -4,7 +4,7 @@ import argparse
 import json
 import sys
 from pathlib import Path
-from typing import Any
+from typing import Any, Iterator
 
 
 class CompileSpecError(Exception):
@@ -102,7 +102,9 @@ def _resolve_block_id(op: dict[str, Any], palette: dict[str, str], op_index: int
     return block_id
 
 
-def _iter_box(start: tuple[int, int, int], end: tuple[int, int, int]):
+def _iter_box(
+    start: tuple[int, int, int], end: tuple[int, int, int]
+) -> Iterator[tuple[int, int, int]]:
     """Yield all coordinates in an inclusive rectangular box."""
     min_x, max_x = sorted((start[0], end[0]))
     min_y, max_y = sorted((start[1], end[1]))
@@ -114,7 +116,9 @@ def _iter_box(start: tuple[int, int, int], end: tuple[int, int, int]):
                 yield (x, y, z)
 
 
-def _iter_box_hollow(start: tuple[int, int, int], end: tuple[int, int, int]):
+def _iter_box_hollow(
+    start: tuple[int, int, int], end: tuple[int, int, int]
+) -> Iterator[tuple[int, int, int]]:
     """Yield only shell coordinates in an inclusive rectangular box."""
     min_x, max_x = sorted((start[0], end[0]))
     min_y, max_y = sorted((start[1], end[1]))
@@ -131,7 +135,9 @@ def _iter_box_hollow(start: tuple[int, int, int], end: tuple[int, int, int]):
                     yield (x, y, z)
 
 
-def _iter_line(start: tuple[int, int, int], end: tuple[int, int, int], op_index: int):
+def _iter_line(
+    start: tuple[int, int, int], end: tuple[int, int, int], op_index: int
+) -> Iterator[tuple[int, int, int]]:
     """Yield coordinates for an axis-aligned inclusive line."""
     dx = end[0] - start[0]
     dy = end[1] - start[1]
