@@ -234,7 +234,7 @@ def main() -> int:
         spec = _load_json_file(Path(args.buildspec))
         placements = compile_buildspec(spec)
     except CompileSpecError as exc:
-        print(f"Error: {exc}")
+        print(f"Compilation Error: {exc}", file=sys.stderr)
         return 1
 
     output_text = json.dumps(placements, indent=2, ensure_ascii=False)
