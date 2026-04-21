@@ -7,6 +7,7 @@ from typing import Any
 
 REQUIRED_FIELDS = ["version", "mc_version", "name", "size", "palette", "ops"]
 ALLOWED_OPS = {"set", "box", "box_hollow", "line"}
+TARGET_MC_VERSION = "1.20.4"
 
 
 def _normalize_block_name(block_id: str) -> str:
@@ -50,6 +51,12 @@ def validate_buildspec(spec: Any, allowed_blocks: set[str]) -> list[str]:
     for field in REQUIRED_FIELDS:
         if field not in spec:
             errors.append(f"Missing required field: {field}")
+
+    mc_version = spec.get("mc_version")
+    if isinstance(mc_version, str) and mc_version != TARGET_MC_VERSION:
+        errors.append(
+            f"mc_version must be {TARGET_MC_VERSION!r}, got: {mc_version!r}"
+        )
 
     ops = spec.get("ops")
     if isinstance(ops, list):
