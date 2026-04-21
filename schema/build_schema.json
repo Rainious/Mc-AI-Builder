@@ -1,0 +1,71 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Minecraft BuildSpec Schema",
+  "description": "Schema for AI-generated Minecraft building plans, compatible with mcschematic.",
+  "type": "object",
+  "properties": {
+    "version": {
+      "type": "string",
+      "description": "Schema version",
+      "default": "1.0"
+    },
+    "mc_version": {
+      "type": "string",
+      "description": "Target Minecraft version",
+      "default": "1.20.4"
+    },
+    "name": {
+      "type": "string",
+      "description": "Unique name for the building"
+    },
+    "size": {
+      "type": "object",
+      "properties": {
+        "x": {"type": "integer", "minimum": 1},
+        "y": {"type": "integer", "minimum": 1},
+        "z": {"type": "integer", "minimum": 1}
+      },
+      "required": ["x","y","z"]
+    },
+    "palette": {
+      "type": "object",
+      "description": "Mapping of logical block names to Minecraft block IDs",
+      "additionalProperties": {"type": "string"}
+    },
+    "ops": {
+      "type": "array",
+      "description": "List of operations to construct the building",
+      "items": {
+        "type": "object",
+        "properties": {
+          "op": {"type": "string", "enum": ["set","box","box_hollow","line"]},
+          "from": {
+            "type": "array",
+            "items": {"type": "integer"},
+            "minItems": 3,
+            "maxItems": 3
+          },
+          "to": {
+            "type": ["array", "null"],
+            "items": {"type": "integer"},
+            "minItems": 3,
+            "maxItems": 3
+          },
+          "at": {
+            "type": ["array", "null"],
+            "items": {"type": "integer"},
+            "minItems": 3,
+            "maxItems": 3
+          },
+          "block": {"type": "string"}
+        },
+        "required": ["op","block"],
+        "anyOf": [
+          {"required": ["from","to"]},
+          {"required": ["at"]}
+        ]
+      }
+    }
+  },
+  "required": ["version","mc_version","name","size","palette","ops"]
+}
