@@ -224,6 +224,7 @@ def compile_buildspec(spec: Any) -> list[dict[str, Any]]:
         )
 
     placements: list[dict[str, Any]] = []
+    # Keep deterministic output ordering to make compiled JSON stable and diff-friendly.
     for (x, y, z), block in sorted(placed.items()):
         placements.append({"x": x, "y": y, "z": z, "block": block})
     return placements
@@ -248,8 +249,12 @@ def main() -> int:
 
     if args.out:
         out_path = Path(args.out)
-        out_path.parent.mkdir(parents=True, exist_ok=True)
-        out_path.write_text(f"{output_text}\n", encoding="utf-8")
+        try:
+            out_path.parent.mkdir(parents=True, exist_ok=True)
+            out_path.write_text(f"{output_text}\n", encoding="utf-8")
+        except OSError as exc:
+            print(f"Error: Failed to write output file {out_path}: {exc}", file=sys.stderr)
+            return 1
 
     return 0
 
