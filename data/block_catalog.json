@@ -1,0 +1,380 @@
+[
+  {
+    "id": 1,
+    "name": "stone",
+    "color": "灰色",
+    "material": "石质",
+    "size": "完整方块"
+  },
+  {
+    "id": 12,
+    "name": "cobblestone",
+    "color": "灰色",
+    "material": "石质",
+    "size": "完整方块"
+  },
+  {
+    "id": 13,
+    "name": "oak_planks",
+    "color": "棕色",
+    "material": "木质",
+    "size": "完整方块"
+  },
+  {
+    "id": 14,
+    "name": "spruce_planks",
+    "color": "棕色",
+    "material": "木质",
+    "size": "完整方块"
+  },
+  {
+    "id": 15,
+    "name": "birch_planks",
+    "color": "棕色",
+    "material": "木质",
+    "size": "完整方块"
+  },
+  {
+    "id": 16,
+    "name": "jungle_planks",
+    "color": "棕色",
+    "material": "木质",
+    "size": "完整方块"
+  },
+  {
+    "id": 17,
+    "name": "acacia_planks",
+    "color": "棕色",
+    "material": "木质",
+    "size": "完整方块"
+  },
+  {
+    "id": 18,
+    "name": "cherry_planks",
+    "color": "棕色",
+    "material": "木质",
+    "size": "完整方块"
+  },
+  {
+    "id": 19,
+    "name": "dark_oak_planks",
+    "color": "棕色",
+    "material": "木质",
+    "size": "完整方块"
+  },
+  {
+    "id": 20,
+    "name": "mangrove_planks",
+    "color": "棕色",
+    "material": "木质",
+    "size": "完整方块"
+  },
+  {
+    "id": 21,
+    "name": "bamboo_planks",
+    "color": "棕色",
+    "material": "木质",
+    "size": "完整方块"
+  },
+  {
+    "id": 41,
+    "name": "iron_ore",
+    "color": "银灰色",
+    "material": "金属",
+    "size": "完整方块"
+  },
+  {
+    "id": 42,
+    "name": "deepslate_iron_ore",
+    "color": "银灰色",
+    "material": "金属",
+    "size": "完整方块"
+  },
+  {
+    "id": 66,
+    "name": "oak_wood",
+    "color": "棕色",
+    "material": "木质",
+    "size": "完整方块"
+  },
+  {
+    "id": 67,
+    "name": "spruce_wood",
+    "color": "棕色",
+    "material": "木质",
+    "size": "完整方块"
+  },
+  {
+    "id": 68,
+    "name": "birch_wood",
+    "color": "棕色",
+    "material": "木质",
+    "size": "完整方块"
+  },
+  {
+    "id": 69,
+    "name": "jungle_wood",
+    "color": "棕色",
+    "material": "木质",
+    "size": "完整方块"
+  },
+  {
+    "id": 70,
+    "name": "acacia_wood",
+    "color": "棕色",
+    "material": "木质",
+    "size": "完整方块"
+  },
+  {
+    "id": 71,
+    "name": "cherry_wood",
+    "color": "棕色",
+    "material": "木质",
+    "size": "完整方块"
+  },
+  {
+    "id": 72,
+    "name": "dark_oak_wood",
+    "color": "棕色",
+    "material": "木质",
+    "size": "完整方块"
+  },
+  {
+    "id": 73,
+    "name": "mangrove_wood",
+    "color": "棕色",
+    "material": "木质",
+    "size": "完整方块"
+  },
+  {
+    "id": 74,
+    "name": "stripped_oak_wood",
+    "color": "棕色",
+    "material": "木质",
+    "size": "完整方块"
+  },
+  {
+    "id": 75,
+    "name": "stripped_spruce_wood",
+    "color": "棕色",
+    "material": "木质",
+    "size": "完整方块"
+  },
+  {
+    "id": 76,
+    "name": "stripped_birch_wood",
+    "color": "棕色",
+    "material": "木质",
+    "size": "完整方块"
+  },
+  {
+    "id": 77,
+    "name": "stripped_jungle_wood",
+    "color": "棕色",
+    "material": "木质",
+    "size": "完整方块"
+  },
+  {
+    "id": 78,
+    "name": "stripped_acacia_wood",
+    "color": "棕色",
+    "material": "木质",
+    "size": "完整方块"
+  },
+  {
+    "id": 79,
+    "name": "stripped_cherry_wood",
+    "color": "棕色",
+    "material": "木质",
+    "size": "完整方块"
+  },
+  {
+    "id": 80,
+    "name": "stripped_dark_oak_wood",
+    "color": "棕色",
+    "material": "木质",
+    "size": "完整方块"
+  },
+  {
+    "id": 81,
+    "name": "stripped_mangrove_wood",
+    "color": "棕色",
+    "material": "木质",
+    "size": "完整方块"
+  },
+  {
+    "id": 94,
+    "name": "glass",
+    "color": "透明",
+    "material": "玻璃",
+    "size": "完整方块"
+  },
+  {
+    "id": 99,
+    "name": "sandstone",
+    "color": "灰色",
+    "material": "石质",
+    "size": "完整方块"
+  },
+  {
+    "id": 100,
+    "name": "chiseled_sandstone",
+    "color": "灰色",
+    "material": "石质",
+    "size": "完整方块"
+  },
+  {
+    "id": 101,
+    "name": "cut_sandstone",
+    "color": "灰色",
+    "material": "石质",
+    "size": "完整方块"
+  },
+  {
+    "id": 164,
+    "name": "iron_block",
+    "color": "银灰色",
+    "material": "金属",
+    "size": "完整方块"
+  },
+  {
+    "id": 165,
+    "name": "bricks",
+    "color": "红褐色",
+    "material": "砖块",
+    "size": "完整方块"
+  },
+  {
+    "id": 169,
+    "name": "mossy_cobblestone",
+    "color": "灰色",
+    "material": "石质",
+    "size": "完整方块"
+  },
+  {
+    "id": 176,
+    "name": "oak_stairs",
+    "color": "其他",
+    "material": "其他",
+    "size": "楼梯"
+  },
+  {
+    "id": 178,
+    "name": "redstone_wire",
+    "color": "灰色",
+    "material": "石质",
+    "size": "完整方块"
+  },
+  {
+    "id": 198,
+    "name": "cobblestone_stairs",
+    "color": "灰色",
+    "material": "石质",
+    "size": "楼梯"
+  },
+  {
+    "id": 231,
+    "name": "stone_pressure_plate",
+    "color": "灰色",
+    "material": "石质",
+    "size": "完整方块"
+  },
+  {
+    "id": 232,
+    "name": "iron_door",
+    "color": "银灰色",
+    "material": "金属",
+    "size": "完整方块"
+  },
+  {
+    "id": 242,
+    "name": "redstone_ore",
+    "color": "灰色",
+    "material": "石质",
+    "size": "完整方块"
+  },
+  {
+    "id": 243,
+    "name": "deepslate_redstone_ore",
+    "color": "灰色",
+    "material": "石质",
+    "size": "完整方块"
+  },
+  {
+    "id": 244,
+    "name": "redstone_torch",
+    "color": "灰色",
+    "material": "石质",
+    "size": "完整方块"
+  },
+  {
+    "id": 245,
+    "name": "redstone_wall_torch",
+    "color": "灰色",
+    "material": "石质",
+    "size": "完整方块"
+  },
+  {
+    "id": 246,
+    "name": "stone_button",
+    "color": "灰色",
+    "material": "石质",
+    "size": "完整方块"
+  },
+  {
+    "id": 254,
+    "name": "oak_fence",
+    "color": "其他",
+    "material": "金属",
+    "size": "栅栏"
+  },
+  {
+    "id": 262,
+    "name": "glowstone",
+    "color": "灰色",
+    "material": "石质",
+    "size": "完整方块"
+  },
+  {
+    "id": 268,
+    "name": "white_stained_glass",
+    "color": "透明",
+    "material": "玻璃",
+    "size": "完整方块"
+  },
+  {
+    "id": 269,
+    "name": "orange_stained_glass",
+    "color": "透明",
+    "material": "玻璃",
+    "size": "完整方块"
+  },
+  {
+    "id": 270,
+    "name": "magenta_stained_glass",
+    "color": "透明",
+    "material": "玻璃",
+    "size": "完整方块"
+  },
+  {
+    "id": 271,
+    "name": "light_blue_stained_glass",
+    "color": "透明",
+    "material": "玻璃",
+    "size": "完整方块"
+  },
+  {
+    "id": 272,
+    "name": "yellow_stained_glass",
+    "color": "透明",
+    "material": "玻璃",
+    "size": "完整方块"
+  },
+  {
+    "id": 273,
+    "name": "lime_stained_glass",
+    "color": "透明",
+    "material": "玻璃",
+    "size": "完整方块"
+  }
+]
