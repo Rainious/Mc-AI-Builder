@@ -135,7 +135,7 @@ def main() -> int:
     try:
         placements = _load_compiled_placements(input_path)
         schem_name = _derive_schem_name(input_path, args.name)
-        output_path = export_placements_to_schem(placements, outdir, schem_name)
+        output_path = _export_to_mcschematic(placements, outdir, schem_name)
     except ExportSchemError as exc:
         print(f"Error: {exc}", file=sys.stderr)
         return 1
