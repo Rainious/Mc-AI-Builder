@@ -18,7 +18,7 @@ from jsonschema import ValidationError as JsonSchemaValidationError
 from jsonschema import validate as validate_json_schema
 
 from main import run_pipeline
-from validate_spec import REQUIRED_FIELDS, load_block_catalog, validate_buildspec
+from validate_spec import REQUIRED_FIELDS, validate_buildspec
 
 
 class NaturalBuildError(Exception):
@@ -127,6 +127,24 @@ def _required_fields_from_schema(schema_data: Any) -> set[str]:
     return set(REQUIRED_FIELDS)
 
 
+def _allowed_blocks_from_catalog_data(catalog_data: Any) -> set[str]:
+    """Extract allowed block names from loaded catalog JSON."""
+    if not isinstance(catalog_data, list):
+        raise NaturalBuildError("Invalid block catalog format: expected a JSON array")
+
+    allowed: set[str] = set()
+    for item in catalog_data:
+        if not isinstance(item, dict):
+            continue
+        name = item.get("name")
+        if isinstance(name, str):
+            allowed.add(name)
+
+    if not allowed:
+        raise NaturalBuildError("No valid block names found in block catalog")
+    return allowed
+
+
 def _extract_buildspec_from_response(response_json: Any, required_fields: set[str]) -> Any:
     """Extract BuildSpec JSON from common model API response formats."""
     # Some APIs return raw BuildSpec object directly.
@@ -228,7 +246,7 @@ def generate_and_export_schematic(
     # Step 1: Read schema and block catalog from repository files.
     schema_data = _load_json_file(resolved_schema_path, "schema")
     catalog_data = _load_json_file(resolved_catalog_path, "block catalog")
-    allowed_blocks = load_block_catalog(resolved_catalog_path)
+    allowed_blocks = _allowed_blocks_from_catalog_data(catalog_data)
 
     # Step 2: Build API payload containing prompt + schema + catalog context.
     payload = _build_request_payload(
@@ -249,25 +267,29 @@ def generate_and_export_schematic(
     # Step 6: Save generated BuildSpec to a temporary JSON file.
     temp_dir = tempfile.mkdtemp(prefix="minecraft_ai_builder_")
     temp_path = Path(temp_dir) / "generated_buildspec.json"
-    try:
-        temp_path.write_text(json.dumps(generated_spec, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
-    except OSError as exc:
-        raise NaturalBuildError(f"Failed to write temporary BuildSpec file ({temp_path}): {exc}") from exc
-
-    # Step 7-8: Call existing main.py pipeline programmatically and emit .schem.
+    # Step 7-8: Save temp BuildSpec and call existing main.py pipeline programmatically.
     output_name = generated_spec.get("name") if isinstance(generated_spec, dict) else None
     if not isinstance(output_name, str) or not output_name.strip():
         output_name = None
 
     try:
-        schem_path = run_pipeline(
-            buildspec_path=temp_path,
-            catalog_path=resolved_catalog_path,
-            outdir=resolved_outdir,
-            name=output_name,
-        )
-    except Exception as exc:
-        raise NaturalBuildError(f"Pipeline failed while creating schematic: {exc}") from exc
+        try:
+            temp_path.write_text(
+                json.dumps(generated_spec, indent=2, ensure_ascii=False) + "\n",
+                encoding="utf-8",
+            )
+        except OSError as exc:
+            raise NaturalBuildError(f"Failed to write temporary BuildSpec file ({temp_path}): {exc}") from exc
+
+        try:
+            schem_path = run_pipeline(
+                buildspec_path=temp_path,
+                catalog_path=resolved_catalog_path,
+                outdir=resolved_outdir,
+                name=output_name,
+            )
+        except Exception as exc:
+            raise NaturalBuildError(f"Pipeline failed while creating schematic: {exc}") from exc
     finally:
         # Remove temp file by default, unless requested to keep it for debugging.
         if not keep_temp:
