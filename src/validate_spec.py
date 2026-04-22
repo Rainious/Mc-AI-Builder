@@ -58,26 +58,30 @@ def validate_buildspec(spec: Any, allowed_blocks: set[str]) -> list[str]:
             f"mc_version must be {TARGET_MC_VERSION!r}, got: {mc_version!r}"
         )
 
-    ops = spec.get("ops")
-    if isinstance(ops, list):
-        for i, item in enumerate(ops):
-            if not isinstance(item, dict):
-                errors.append(f"ops[{i}] must be an object")
-                continue
-            op = item.get("op")
-            if op not in ALLOWED_OPS:
-                errors.append(
-                    f"ops[{i}].op must be one of {sorted(ALLOWED_OPS)}, got: {op!r}"
-                )
-    elif "ops" in spec:
-        errors.append("Field 'ops' must be an array")
+    size = spec.get("size")
+    size_tuple: tuple[int, int, int] | None = None
+    if isinstance(size, dict):
+        size_values: list[int] = []
+        for axis in ("x", "y", "z"):
+            axis_value = size.get(axis)
+            if not isinstance(axis_value, int) or axis_value < 1:
+                errors.append(f"size.{axis} must be an integer >= 1")
+            else:
+                size_values.append(axis_value)
+        if len(size_values) == 3:
+            size_tuple = (size_values[0], size_values[1], size_values[2])
+    elif "size" in spec:
+        errors.append("Field 'size' must be an object")
 
+    ops = spec.get("ops")
     palette = spec.get("palette")
+    palette_keys: set[str] = set()
     if isinstance(palette, dict):
         for key, value in palette.items():
             if not isinstance(value, str):
                 errors.append(f"palette['{key}'] must be a string block id")
                 continue
+            palette_keys.add(key)
             normalized = _normalize_block_name(value)
             if normalized not in allowed_blocks:
                 errors.append(
@@ -85,6 +89,67 @@ def validate_buildspec(spec: Any, allowed_blocks: set[str]) -> list[str]:
                 )
     elif "palette" in spec:
         errors.append("Field 'palette' must be an object")
+
+    def _validate_point(op_index: int, field_name: str, point: Any) -> tuple[int, int, int] | None:
+        if not isinstance(point, list) or len(point) != 3:
+            errors.append(f"ops[{op_index}].{field_name} must be an array of 3 integers")
+            return None
+        if not all(isinstance(v, int) for v in point):
+            errors.append(f"ops[{op_index}].{field_name} must contain only integers")
+            return None
+
+        coord = (point[0], point[1], point[2])
+        if size_tuple is not None:
+            sx, sy, sz = size_tuple
+            x, y, z = coord
+            if not (0 <= x < sx and 0 <= y < sy and 0 <= z < sz):
+                errors.append(
+                    "Out-of-bounds placement at "
+                    f"{coord} in ops[{op_index}] (valid ranges: "
+                    f"x=0..{sx - 1}, y=0..{sy - 1}, z=0..{sz - 1})"
+                )
+        return coord
+
+    if isinstance(ops, list):
+        for i, item in enumerate(ops):
+            if not isinstance(item, dict):
+                errors.append(f"ops[{i}] must be an object")
+                continue
+            op = item.get("op")
+            op_valid = True
+            if op not in ALLOWED_OPS:
+                errors.append(
+                    f"ops[{i}].op must be one of {sorted(ALLOWED_OPS)}, got: {op!r}"
+                )
+                op_valid = False
+
+            block_key = item.get("block")
+            if not isinstance(block_key, str):
+                errors.append(f"ops[{i}].block must be a palette key string")
+                continue
+            if isinstance(palette, dict) and block_key not in palette_keys:
+                errors.append(f"ops[{i}] references unknown palette key: {block_key!r}")
+
+            if not op_valid:
+                continue
+
+            if op == "set":
+                _validate_point(i, "at", item.get("at"))
+                continue
+
+            start = _validate_point(i, "from", item.get("from"))
+            end = _validate_point(i, "to", item.get("to"))
+            if op == "line" and start is not None and end is not None:
+                dx = end[0] - start[0]
+                dy = end[1] - start[1]
+                dz = end[2] - start[2]
+                changed_axes = sum(delta != 0 for delta in (dx, dy, dz))
+                if changed_axes > 1:
+                    errors.append(
+                        f"ops[{i}] line must be axis-aligned: from={start} to={end}"
+                    )
+    elif "ops" in spec:
+        errors.append("Field 'ops' must be an array")
 
     return errors
 
