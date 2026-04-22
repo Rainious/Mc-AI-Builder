@@ -42,7 +42,14 @@ def _load_compiled_placements(path: Path) -> list[dict[str, Any]]:
     if not isinstance(data, list):
         raise ExportSchemError("Compiled placement root must be a JSON array")
 
-    return [_validate_one_placement(item, i) for i, item in enumerate(data)]
+    return _normalize_placements(data)
+
+
+def _normalize_placements(placements: Any) -> list[dict[str, Any]]:
+    """Validate and normalize compiled placement list."""
+    if not isinstance(placements, list):
+        raise ExportSchemError("Compiled placement root must be a JSON array")
+    return [_validate_one_placement(item, i) for i, item in enumerate(placements)]
 
 
 def _resolve_mc_version() -> Any:
@@ -105,10 +112,7 @@ def export_placements_to_schem(
     schem_name: str,
 ) -> Path:
     """Validate placements and export them to a .schem file."""
-    if not isinstance(placements, list):
-        raise ExportSchemError("Compiled placement root must be a JSON array")
-
-    normalized = [_validate_one_placement(item, i) for i, item in enumerate(placements)]
+    normalized = _normalize_placements(placements)
     return _export_to_mcschematic(normalized, outdir, schem_name)
 
 

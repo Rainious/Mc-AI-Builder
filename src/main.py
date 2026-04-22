@@ -73,8 +73,7 @@ def main() -> int:
             name=args.name,
         )
     except RuntimeError as exc:
-        for line in str(exc).splitlines():
-            print(f"Error: {line}", file=sys.stderr)
+        print(f"Error: {exc}", file=sys.stderr)
         return 1
     except CompileSpecError as exc:
         print(f"Compilation Error: {exc}", file=sys.stderr)
