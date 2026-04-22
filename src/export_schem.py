@@ -104,7 +104,7 @@ def _export_to_mcschematic(
 
 
 def export_placements_to_schem(
-    placements: Any,
+    placements: list[dict[str, Any]],
     outdir: Path,
     schem_name: str,
 ) -> Path:
