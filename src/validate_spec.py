@@ -90,7 +90,7 @@ def validate_buildspec(spec: Any, allowed_blocks: set[str]) -> list[str]:
     elif "palette" in spec:
         errors.append("Field 'palette' must be an object")
 
-    def validate_point(op_index: int, field_name: str, point: Any) -> tuple[int, int, int] | None:
+    def _validate_point(op_index: int, field_name: str, point: Any) -> tuple[int, int, int] | None:
         if not isinstance(point, list) or len(point) != 3:
             errors.append(f"ops[{op_index}].{field_name} must be an array of 3 integers")
             return None
@@ -116,25 +116,29 @@ def validate_buildspec(spec: Any, allowed_blocks: set[str]) -> list[str]:
                 errors.append(f"ops[{i}] must be an object")
                 continue
             op = item.get("op")
+            op_valid = True
             if op not in ALLOWED_OPS:
                 errors.append(
                     f"ops[{i}].op must be one of {sorted(ALLOWED_OPS)}, got: {op!r}"
                 )
-                continue
+                op_valid = False
 
             block_key = item.get("block")
             if not isinstance(block_key, str):
                 errors.append(f"ops[{i}].block must be a palette key string")
                 continue
-            if palette_keys and block_key not in palette_keys:
+            if isinstance(palette, dict) and block_key not in palette_keys:
                 errors.append(f"ops[{i}] references unknown palette key: {block_key!r}")
 
-            if op == "set":
-                validate_point(i, "at", item.get("at"))
+            if not op_valid:
                 continue
 
-            start = validate_point(i, "from", item.get("from"))
-            end = validate_point(i, "to", item.get("to"))
+            if op == "set":
+                _validate_point(i, "at", item.get("at"))
+                continue
+
+            start = _validate_point(i, "from", item.get("from"))
+            end = _validate_point(i, "to", item.get("to"))
             if op == "line" and start is not None and end is not None:
                 dx = end[0] - start[0]
                 dy = end[1] - start[1]
