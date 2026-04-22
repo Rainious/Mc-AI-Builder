@@ -111,7 +111,7 @@ def main() -> int:
     """Run CLI flow to export compiled placements JSON to .schem."""
     parser = argparse.ArgumentParser(description="Export compiled placements JSON to .schem")
     parser.add_argument("compiled", help="Path to compiled placements JSON file")
-    parser.add_argument("--outdir", default="out", help="Output directory for .schem (default: ./out)")
+    parser.add_argument("--outdir", default="./out", help="Output directory for .schem (default: ./out)")
     parser.add_argument("--name", help="Output schematic name (without .schem)")
     args = parser.parse_args()
 
