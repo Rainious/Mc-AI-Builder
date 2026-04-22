@@ -112,7 +112,7 @@ def _extract_json_from_text(raw_text: str) -> Any:
         pass
 
     # Try extracting JSON from fenced code block.
-    match = re.search(r"```(?:json)?\s*(\{.*\}|\[.*\])\s*```", stripped, re.DOTALL)
+    match = re.search(r"```(?:json)?\s*(\{.*?\}|\[.*?\])\s*```", stripped, re.DOTALL)
     if not match:
         raise NaturalBuildError("Model text response is not valid JSON")
     try:
@@ -177,9 +177,9 @@ def _extract_buildspec_from_response(response_json: Any, required_fields: set[st
                     # Some APIs return structured content chunks.
                     if isinstance(content, list):
                         combined = "".join(
-                            item.get("text", "")
+                            text
                             for item in content
-                            if isinstance(item, dict) and isinstance(item.get("text"), str)
+                            if isinstance(item, dict) and isinstance((text := item.get("text")), str)
                         )
                         if combined:
                             return _extract_json_from_text(combined)
@@ -275,11 +275,11 @@ def generate_and_export_schematic(
     # Step 6: Save generated BuildSpec to a temporary JSON file.
     temp_dir = tempfile.mkdtemp(prefix="minecraft_ai_builder_")
     temp_path = Path(temp_dir) / "generated_buildspec.json"
+    schem_path: Path | None = None
     try:
         # Step 7-8: Save temp BuildSpec and call existing main.py pipeline programmatically.
         output_name = generated_spec.get("name") if isinstance(generated_spec, dict) else None
-        if not isinstance(output_name, str) or not output_name.strip():
-            output_name = None
+        output_name = output_name if isinstance(output_name, str) and output_name.strip() else None
 
         try:
             temp_path.write_text(
@@ -304,6 +304,8 @@ def generate_and_export_schematic(
             # Cleanup is best-effort only; generation may have already succeeded/failed.
             shutil.rmtree(temp_path.parent, ignore_errors=True)
 
+    if schem_path is None:
+        raise NaturalBuildError("Pipeline failed to produce schematic output path")
     return schem_path, temp_path
 
 
