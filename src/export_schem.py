@@ -39,10 +39,14 @@ def _load_compiled_placements(path: Path) -> list[dict[str, Any]]:
     except OSError as exc:
         raise ExportSchemError(f"Failed to read compiled placement file ({path}): {exc}") from exc
 
-    if not isinstance(data, list):
-        raise ExportSchemError("Compiled placement root must be a JSON array")
+    return _normalize_placements(data)
 
-    return [_validate_one_placement(item, i) for i, item in enumerate(data)]
+
+def _normalize_placements(placements: Any) -> list[dict[str, Any]]:
+    """Validate and normalize compiled placement list."""
+    if not isinstance(placements, list):
+        raise ExportSchemError("Compiled placement root must be a JSON array")
+    return [_validate_one_placement(item, i) for i, item in enumerate(placements)]
 
 
 def _resolve_mc_version() -> Any:
@@ -97,6 +101,16 @@ def _export_to_mcschematic(
         raise ExportSchemError(f"Failed to export schematic: {exc}") from exc
 
     return outdir / f"{schem_name}.schem"
+
+
+def export_placements_to_schem(
+    placements: list[dict[str, Any]],
+    outdir: Path,
+    schem_name: str,
+) -> Path:
+    """Validate placements and export them to a .schem file."""
+    normalized = _normalize_placements(placements)
+    return _export_to_mcschematic(normalized, outdir, schem_name)
 
 
 def _derive_schem_name(input_path: Path, explicit_name: str | None) -> str:
