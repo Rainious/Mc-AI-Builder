@@ -6,6 +6,7 @@ import argparse
 import json
 import os
 import re
+import shutil
 import socket
 import sys
 import tempfile
@@ -58,6 +59,8 @@ def _build_request_payload(
     schema_data: Any,
     catalog_data: Any,
     model: str | None,
+    temperature: float,
+    include_schema_response_format: bool,
 ) -> dict[str, Any]:
     """Create an OpenAI-compatible chat-completions payload."""
     system_prompt = (
@@ -81,15 +84,16 @@ def _build_request_payload(
             {"role": "system", "content": system_prompt},
             {"role": "user", "content": user_prompt},
         ],
-        "temperature": 0.2,
-        "response_format": {
+        "temperature": temperature,
+    }
+    if include_schema_response_format:
+        payload["response_format"] = {
             "type": "json_schema",
             "json_schema": {
                 "name": "buildspec",
                 "schema": schema_data,
             },
-        },
-    }
+        }
     if model:
         payload["model"] = model
     return payload
@@ -237,6 +241,8 @@ def generate_and_export_schematic(
     api_key: str | None = None,
     timeout: float = 120.0,
     keep_temp: bool = False,
+    temperature: float = 0.2,
+    include_schema_response_format: bool = True,
 ) -> tuple[Path, Path]:
     """Run natural language to .schem pipeline and return (.schem path, temp JSON path)."""
     resolved_schema_path = schema_path or _default_schema_path()
@@ -254,6 +260,8 @@ def generate_and_export_schematic(
         schema_data=schema_data,
         catalog_data=catalog_data,
         model=model,
+        temperature=temperature,
+        include_schema_response_format=include_schema_response_format,
     )
 
     # Step 3-4: Call model API and extract BuildSpec JSON from response.
@@ -267,12 +275,12 @@ def generate_and_export_schematic(
     # Step 6: Save generated BuildSpec to a temporary JSON file.
     temp_dir = tempfile.mkdtemp(prefix="minecraft_ai_builder_")
     temp_path = Path(temp_dir) / "generated_buildspec.json"
-    # Step 7-8: Save temp BuildSpec and call existing main.py pipeline programmatically.
-    output_name = generated_spec.get("name") if isinstance(generated_spec, dict) else None
-    if not isinstance(output_name, str) or not output_name.strip():
-        output_name = None
-
     try:
+        # Step 7-8: Save temp BuildSpec and call existing main.py pipeline programmatically.
+        output_name = generated_spec.get("name") if isinstance(generated_spec, dict) else None
+        if not isinstance(output_name, str) or not output_name.strip():
+            output_name = None
+
         try:
             temp_path.write_text(
                 json.dumps(generated_spec, indent=2, ensure_ascii=False) + "\n",
@@ -293,12 +301,8 @@ def generate_and_export_schematic(
     finally:
         # Remove temp file by default, unless requested to keep it for debugging.
         if not keep_temp:
-            try:
-                temp_path.unlink(missing_ok=True)
-                temp_path.parent.rmdir()
-            except OSError:
-                # Cleanup is best-effort only; generation may have already succeeded/failed.
-                pass
+            # Cleanup is best-effort only; generation may have already succeeded/failed.
+            shutil.rmtree(temp_path.parent, ignore_errors=True)
 
     return schem_path, temp_path
 
@@ -316,6 +320,17 @@ def main() -> int:
     parser.add_argument("--catalog", default=None, help="Optional block catalog path (default: data/block_catalog.json)")
     parser.add_argument("--api-key", default=None, help="Optional API key (default: MODEL_API_KEY env var)")
     parser.add_argument("--timeout", type=float, default=120.0, help="Model API timeout in seconds (default: 120)")
+    parser.add_argument(
+        "--temperature",
+        type=float,
+        default=0.2,
+        help="Sampling temperature sent to the model API (default: 0.2)",
+    )
+    parser.add_argument(
+        "--no-schema-response-format",
+        action="store_true",
+        help="Disable OpenAI-style JSON schema response_format in API payload",
+    )
     parser.add_argument("--keep-temp", action="store_true", help="Keep generated temporary BuildSpec JSON file")
     args = parser.parse_args()
 
@@ -335,6 +350,8 @@ def main() -> int:
             api_key=api_key,
             timeout=args.timeout,
             keep_temp=args.keep_temp,
+            temperature=args.temperature,
+            include_schema_response_format=not args.no_schema_response_format,
         )
     except NaturalBuildError as exc:
         print(f"Error: {exc}", file=sys.stderr)
