@@ -1,0 +1,318 @@
+"""Generate a BuildSpec from natural language and export it to .schem."""
+
+from __future__ import annotations
+
+import argparse
+import json
+import os
+import re
+import sys
+import tempfile
+import urllib.error
+import urllib.request
+from pathlib import Path
+from typing import Any
+
+from jsonschema import ValidationError as JsonSchemaValidationError
+from jsonschema import validate as validate_json_schema
+
+from main import run_pipeline
+from validate_spec import load_block_catalog, validate_buildspec
+
+
+class NaturalBuildError(Exception):
+    """Raised when the natural language build pipeline fails."""
+
+
+def _repo_root() -> Path:
+    """Return repository root path from this script location."""
+    return Path(__file__).resolve().parents[1]
+
+
+def _default_schema_path() -> Path:
+    """Return default schema file path."""
+    return _repo_root() / "schema" / "build_schema.json"
+
+
+def _default_catalog_path() -> Path:
+    """Return default block catalog path."""
+    return _repo_root() / "data" / "block_catalog.json"
+
+
+def _load_json_file(path: Path, label: str) -> Any:
+    """Load JSON from disk with clear errors."""
+    try:
+        with path.open("r", encoding="utf-8") as f:
+            return json.load(f)
+    except FileNotFoundError as exc:
+        raise NaturalBuildError(f"{label} file not found: {path}") from exc
+    except json.JSONDecodeError as exc:
+        raise NaturalBuildError(f"Invalid JSON in {label} file ({path}): {exc}") from exc
+    except OSError as exc:
+        raise NaturalBuildError(f"Failed to read {label} file ({path}): {exc}") from exc
+
+
+def _build_request_payload(
+    description: str,
+    schema_data: Any,
+    catalog_data: Any,
+    model: str | None,
+) -> dict[str, Any]:
+    """Create an OpenAI-compatible chat-completions payload."""
+    system_prompt = (
+        "You are a Minecraft BuildSpec generator for Java 1.20.4. "
+        "Return ONLY valid JSON (no markdown/code fences). "
+        "The JSON must strictly conform to the provided schema. "
+        "Palette values must use only blocks from the provided block catalog. "
+        "Use operations among: set, box, box_hollow, line."
+    )
+    user_prompt = (
+        "Generate a BuildSpec JSON for this request:\n"
+        f"{description}\n\n"
+        "JSON Schema:\n"
+        f"{json.dumps(schema_data, ensure_ascii=False)}\n\n"
+        "Allowed block catalog:\n"
+        f"{json.dumps(catalog_data, ensure_ascii=False)}"
+    )
+
+    payload: dict[str, Any] = {
+        "messages": [
+            {"role": "system", "content": system_prompt},
+            {"role": "user", "content": user_prompt},
+        ],
+        "temperature": 0.2,
+        "response_format": {
+            "type": "json_schema",
+            "json_schema": {
+                "name": "buildspec",
+                "schema": schema_data,
+            },
+        },
+    }
+    if model:
+        payload["model"] = model
+    return payload
+
+
+def _extract_json_from_text(raw_text: str) -> Any:
+    """Parse JSON text, including common fenced output formats."""
+    stripped = raw_text.strip()
+    if not stripped:
+        raise NaturalBuildError("Model returned empty text response")
+
+    # Try direct JSON first.
+    try:
+        return json.loads(stripped)
+    except json.JSONDecodeError:
+        pass
+
+    # Try extracting JSON from fenced code block.
+    match = re.search(r"```(?:json)?\s*(\{.*\}|\[.*\])\s*```", stripped, re.DOTALL)
+    if not match:
+        raise NaturalBuildError("Model text response is not valid JSON")
+    try:
+        return json.loads(match.group(1))
+    except json.JSONDecodeError as exc:
+        raise NaturalBuildError(f"Failed to parse JSON from fenced model response: {exc}") from exc
+
+
+def _extract_buildspec_from_response(response_json: Any) -> Any:
+    """Extract BuildSpec JSON from common model API response formats."""
+    # Some APIs return raw BuildSpec object directly.
+    if isinstance(response_json, dict) and {"version", "mc_version", "name", "size", "palette", "ops"}.issubset(
+        response_json.keys()
+    ):
+        return response_json
+
+    if isinstance(response_json, dict):
+        # Common wrappers from different APIs.
+        for key in ("buildspec", "output", "result", "data"):
+            candidate = response_json.get(key)
+            if isinstance(candidate, dict):
+                return candidate
+            if isinstance(candidate, str):
+                return _extract_json_from_text(candidate)
+
+        # OpenAI-compatible chat completions format.
+        choices = response_json.get("choices")
+        if isinstance(choices, list) and choices:
+            first_choice = choices[0]
+            if isinstance(first_choice, dict):
+                message = first_choice.get("message")
+                if isinstance(message, dict):
+                    content = message.get("content")
+                    if isinstance(content, str):
+                        return _extract_json_from_text(content)
+                    # Some APIs return structured content chunks.
+                    if isinstance(content, list):
+                        combined = "".join(
+                            item.get("text", "")
+                            for item in content
+                            if isinstance(item, dict) and isinstance(item.get("text"), str)
+                        )
+                        if combined:
+                            return _extract_json_from_text(combined)
+
+                # Fallback for plain text output field.
+                text = first_choice.get("text")
+                if isinstance(text, str):
+                    return _extract_json_from_text(text)
+
+    raise NaturalBuildError("Could not extract BuildSpec JSON from model API response")
+
+
+def _post_json(url: str, payload: dict[str, Any], api_key: str | None, timeout: float) -> Any:
+    """Send JSON POST request and parse JSON response."""
+    body = json.dumps(payload, ensure_ascii=False).encode("utf-8")
+    headers = {"Content-Type": "application/json"}
+    if api_key:
+        headers["Authorization"] = f"Bearer {api_key}"
+
+    request = urllib.request.Request(url=url, data=body, headers=headers, method="POST")
+    try:
+        with urllib.request.urlopen(request, timeout=timeout) as response:
+            response_body = response.read().decode("utf-8")
+    except urllib.error.HTTPError as exc:
+        error_text = exc.read().decode("utf-8", errors="replace")
+        raise NaturalBuildError(f"Model API HTTP error {exc.code}: {error_text}") from exc
+    except urllib.error.URLError as exc:
+        raise NaturalBuildError(f"Failed to reach model API: {exc.reason}") from exc
+    except TimeoutError as exc:
+        raise NaturalBuildError("Timed out waiting for model API response") from exc
+
+    try:
+        return json.loads(response_body)
+    except json.JSONDecodeError as exc:
+        raise NaturalBuildError(f"Model API returned invalid JSON response: {exc}") from exc
+
+
+def _validate_generated_buildspec(spec: Any, schema_data: Any, allowed_blocks: set[str]) -> None:
+    """Validate generated BuildSpec against JSON schema and local project checks."""
+    # First validate against JSON schema.
+    try:
+        validate_json_schema(instance=spec, schema=schema_data)
+    except JsonSchemaValidationError as exc:
+        raise NaturalBuildError(f"Generated BuildSpec failed schema validation: {exc.message}") from exc
+
+    # Then enforce project-specific checks from existing validator.
+    errors = validate_buildspec(spec, allowed_blocks)
+    if errors:
+        raise NaturalBuildError("Generated BuildSpec failed local validation:\n" + "\n".join(errors))
+
+
+def generate_and_export_schematic(
+    description: str,
+    model_url: str,
+    model: str | None = None,
+    outdir: Path | None = None,
+    schema_path: Path | None = None,
+    catalog_path: Path | None = None,
+    api_key: str | None = None,
+    timeout: float = 120.0,
+    keep_temp: bool = False,
+) -> tuple[Path, Path]:
+    """Run natural language to .schem pipeline and return (.schem path, temp JSON path)."""
+    resolved_schema_path = schema_path or _default_schema_path()
+    resolved_catalog_path = catalog_path or _default_catalog_path()
+    resolved_outdir = outdir or (_repo_root() / "out")
+
+    # Step 1: Read schema and block catalog from repository files.
+    schema_data = _load_json_file(resolved_schema_path, "schema")
+    catalog_data = _load_json_file(resolved_catalog_path, "block catalog")
+    allowed_blocks = load_block_catalog(resolved_catalog_path)
+
+    # Step 2: Build API payload containing prompt + schema + catalog context.
+    payload = _build_request_payload(
+        description=description,
+        schema_data=schema_data,
+        catalog_data=catalog_data,
+        model=model,
+    )
+
+    # Step 3-4: Call model API and extract BuildSpec JSON from response.
+    response_json = _post_json(model_url, payload, api_key=api_key, timeout=timeout)
+    generated_spec = _extract_buildspec_from_response(response_json)
+
+    # Step 5: Validate generated BuildSpec locally before export.
+    _validate_generated_buildspec(generated_spec, schema_data, allowed_blocks)
+
+    # Step 6: Save generated BuildSpec to a temporary JSON file.
+    temp_dir = tempfile.mkdtemp(prefix="mc_ai_builder_")
+    temp_path = Path(temp_dir) / "generated_buildspec.json"
+    try:
+        temp_path.write_text(json.dumps(generated_spec, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    except OSError as exc:
+        raise NaturalBuildError(f"Failed to write temporary BuildSpec file ({temp_path}): {exc}") from exc
+
+    # Step 7-8: Call existing main.py pipeline programmatically and emit .schem.
+    output_name = generated_spec.get("name") if isinstance(generated_spec, dict) else None
+    if not isinstance(output_name, str) or not output_name.strip():
+        output_name = None
+
+    try:
+        schem_path = run_pipeline(
+            buildspec_path=temp_path,
+            catalog_path=resolved_catalog_path,
+            outdir=resolved_outdir,
+            name=output_name,
+        )
+    except Exception as exc:
+        raise NaturalBuildError(f"Pipeline failed while creating schematic: {exc}") from exc
+
+    # Keep temp file by default if requested, otherwise remove it after success.
+    if not keep_temp:
+        try:
+            temp_path.unlink(missing_ok=True)
+            temp_path.parent.rmdir()
+        except OSError:
+            pass
+
+    return schem_path, temp_path
+
+
+def main() -> int:
+    """CLI entrypoint for natural language BuildSpec generation + schematic export."""
+    parser = argparse.ArgumentParser(
+        description="Generate BuildSpec from natural language via model API and export .schem"
+    )
+    parser.add_argument("description", help="Natural language description of the building")
+    parser.add_argument("--model-url", required=True, help="Model API URL/endpoint")
+    parser.add_argument("--model", help="Optional model name/identifier")
+    parser.add_argument("--outdir", default=None, help="Optional output directory for .schem")
+    parser.add_argument("--schema", default=None, help="Optional schema path (default: schema/build_schema.json)")
+    parser.add_argument("--catalog", default=None, help="Optional block catalog path (default: data/block_catalog.json)")
+    parser.add_argument("--api-key", default=None, help="Optional API key (default: MODEL_API_KEY env var)")
+    parser.add_argument("--timeout", type=float, default=120.0, help="Model API timeout in seconds (default: 120)")
+    parser.add_argument("--keep-temp", action="store_true", help="Keep generated temporary BuildSpec JSON file")
+    args = parser.parse_args()
+
+    api_key = args.api_key or os.getenv("MODEL_API_KEY")
+    outdir = Path(args.outdir) if args.outdir else None
+    schema = Path(args.schema) if args.schema else None
+    catalog = Path(args.catalog) if args.catalog else None
+
+    try:
+        schem_path, temp_path = generate_and_export_schematic(
+            description=args.description,
+            model_url=args.model_url,
+            model=args.model,
+            outdir=outdir,
+            schema_path=schema,
+            catalog_path=catalog,
+            api_key=api_key,
+            timeout=args.timeout,
+            keep_temp=args.keep_temp,
+        )
+    except NaturalBuildError as exc:
+        print(f"Error: {exc}", file=sys.stderr)
+        return 1
+
+    print(str(schem_path))
+    if args.keep_temp:
+        print(f"Temporary BuildSpec: {temp_path}", file=sys.stderr)
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())
+
