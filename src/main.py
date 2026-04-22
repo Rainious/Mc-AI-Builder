@@ -79,7 +79,7 @@ def main() -> int:
         print(f"Compilation Error: {exc}", file=sys.stderr)
         return 1
     except ExportSchemError as exc:
-        print(f"Error: {exc}", file=sys.stderr)
+        print(f"Export Error: {exc}", file=sys.stderr)
         return 1
 
     print(str(output_path))

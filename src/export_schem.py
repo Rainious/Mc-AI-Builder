@@ -39,9 +39,6 @@ def _load_compiled_placements(path: Path) -> list[dict[str, Any]]:
     except OSError as exc:
         raise ExportSchemError(f"Failed to read compiled placement file ({path}): {exc}") from exc
 
-    if not isinstance(data, list):
-        raise ExportSchemError("Compiled placement root must be a JSON array")
-
     return _normalize_placements(data)
 
 
