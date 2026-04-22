@@ -1,0 +1,31 @@
+{
+  "version": "1.0",
+  "mc_version": "1.20.4",
+  "name": "small_cottage",
+  "size": { "x": 8, "y": 7, "z": 8 },
+  "palette": {
+    "floor": "minecraft:oak_planks",
+    "wall": "minecraft:oak_planks",
+    "roof": "minecraft:oak_stairs",
+    "door": "minecraft:oak_fence",
+    "window": "minecraft:glass"
+  },
+  "ops": [
+    { "op": "box", "from": [0,0,0], "to": [6,0,6], "block": "floor" },
+    { "op": "box_hollow", "from": [0,1,0], "to": [6,4,6], "block": "wall" },
+    { "op": "set", "at": [3,1,0], "block": "door" },
+    { "op": "set", "at": [3,1,6], "block": "door" },
+    { "op": "set", "at": [1,2,0], "block": "window" },
+    { "op": "set", "at": [5,2,0], "block": "window" },
+    { "op": "set", "at": [1,2,6], "block": "window" },
+    { "op": "set", "at": [5,2,6], "block": "window" },
+    { "op": "line", "from": [0,5,0], "to": [6,5,0], "block": "roof" },
+    { "op": "line", "from": [0,5,6], "to": [6,5,6], "block": "roof" },
+    { "op": "line", "from": [0,5,0], "to": [0,5,6], "block": "roof" },
+    { "op": "line", "from": [6,5,0], "to": [6,5,6], "block": "roof" },
+    { "op": "line", "from": [1,6,1], "to": [5,6,1], "block": "roof" },
+    { "op": "line", "from": [1,6,5], "to": [5,6,5], "block": "roof" },
+    { "op": "line", "from": [1,6,1], "to": [1,6,5], "block": "roof" },
+    { "op": "line", "from": [5,6,1], "to": [5,6,5], "block": "roof" }
+  ]
+}

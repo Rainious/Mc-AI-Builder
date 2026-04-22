@@ -1,0 +1,159 @@
+{
+  "version": "1.0",
+  "mc_version": "1.20.4",
+  "name": "gorgeous_gothic_church",
+  "size": {
+    "x": 25,
+    "y": 40,
+    "z": 45
+  },
+  "palette": {
+    "floor": "polished_deepslate",
+    "floor_accent": "gold_block",
+    "wall": "quartz_bricks",
+    "wall_detail": "chiseled_quartz_block",
+    "pillar": "quartz_pillar",
+    "roof_base": "dark_oak_planks",
+    "glass_main": "magenta_stained_glass",
+    "glass_accent": "light_blue_stained_glass",
+    "grille": "copper_grate",
+    "spire": "gold_block",
+    "light": "glowstone",
+    "gate": "iron_bars",
+    "gold_block": "gold_block"
+  },
+  "ops": [
+    { "op": "box", "from": [0, 0, 0], "to": [24, 0, 44], "block": "floor" },
+    { "op": "box", "from": [12, 0, 2], "to": [12, 0, 38], "block": "floor_accent" },
+    { "op": "set", "at": [12, 0, 10], "block": "light" },
+    { "op": "set", "at": [12, 0, 20], "block": "light" },
+    { "op": "set", "at": [12, 0, 30], "block": "light" },
+
+    { "op": "box_hollow", "from": [2, 1, 2], "to": [8, 25, 8], "block": "wall" },
+    { "op": "box_hollow", "from": [16, 1, 2], "to": [22, 25, 8], "block": "wall" },
+
+    { "op": "box", "from": [9, 1, 2], "to": [15, 18, 2], "block": "wall" },
+
+    { "op": "box", "from": [5, 1, 8], "to": [5, 18, 40], "block": "wall" },
+    { "op": "box", "from": [19, 1, 8], "to": [19, 18, 40], "block": "wall" },
+    { "op": "box", "from": [5, 1, 40], "to": [19, 18, 40], "block": "wall" },
+
+    { "op": "box", "from": [5, 9, 8], "to": [5, 9, 40], "block": "wall_detail" },
+    { "op": "box", "from": [19, 9, 8], "to": [19, 9, 40], "block": "wall_detail" },
+    { "op": "box", "from": [4, 17, 8], "to": [4, 17, 40], "block": "wall_detail" },
+    { "op": "box", "from": [20, 17, 8], "to": [20, 17, 40], "block": "wall_detail" },
+
+    { "op": "box", "from": [1, 1, 1], "to": [3, 26, 3], "block": "pillar" },
+    { "op": "box", "from": [7, 1, 1], "to": [9, 26, 3], "block": "pillar" },
+    { "op": "box", "from": [1, 1, 7], "to": [3, 26, 9], "block": "pillar" },
+    { "op": "box", "from": [7, 1, 7], "to": [9, 26, 9], "block": "pillar" },
+
+    { "op": "box", "from": [15, 1, 1], "to": [17, 26, 3], "block": "pillar" },
+    { "op": "box", "from": [21, 1, 1], "to": [23, 26, 3], "block": "pillar" },
+    { "op": "box", "from": [15, 1, 7], "to": [17, 26, 9], "block": "pillar" },
+    { "op": "box", "from": [21, 1, 7], "to": [23, 26, 9], "block": "pillar" },
+
+    { "op": "box", "from": [3, 26, 3], "to": [7, 30, 7], "block": "wall_detail" },
+    { "op": "box", "from": [4, 31, 4], "to": [6, 35, 6], "block": "pillar" },
+    { "op": "set", "at": [5, 36, 5], "block": "spire" },
+    { "op": "set", "at": [5, 37, 5], "block": "spire" },
+
+    { "op": "box", "from": [17, 26, 3], "to": [21, 30, 7], "block": "wall_detail" },
+    { "op": "box", "from": [18, 31, 4], "to": [20, 35, 6], "block": "pillar" },
+    { "op": "set", "at": [19, 36, 5], "block": "spire" },
+    { "op": "set", "at": [19, 37, 5], "block": "spire" },
+
+    { "op": "box", "from": [10, 1, 2], "to": [14, 5, 2], "block": "gate" },
+    { "op": "box", "from": [10, 6, 2], "to": [14, 8, 2], "block": "grille" },
+    { "op": "box", "from": [9, 9, 2], "to": [15, 9, 2], "block": "wall_detail" },
+
+    { "op": "box", "from": [4, 10, 2], "to": [6, 18, 2], "block": "grille" },
+    { "op": "box", "from": [18, 10, 2], "to": [20, 18, 2], "block": "grille" },
+
+    { "op": "box", "from": [9, 11, 2], "to": [15, 17, 2], "block": "wall_detail" },
+    { "op": "box", "from": [10, 12, 2], "to": [14, 16, 2], "block": "glass_main" },
+    { "op": "box", "from": [12, 13, 2], "to": [12, 15, 2], "block": "glass_accent" },
+    { "op": "box", "from": [11, 14, 2], "to": [13, 14, 2], "block": "glass_accent" },
+    
+    { "op": "box", "from": [12, 19, 1], "to": [12, 23, 1], "block": "gold_block" },
+    { "op": "box", "from": [11, 21, 1], "to": [13, 21, 1], "block": "gold_block" },
+
+    { "op": "box", "from": [10, 10, 40], "to": [14, 14, 40], "block": "glass_main" },
+    { "op": "set", "at": [12, 12, 40], "block": "glass_accent" },
+    { "op": "set", "at": [12, 11, 40], "block": "glass_accent" },
+    { "op": "set", "at": [12, 13, 40], "block": "glass_accent" },
+    { "op": "set", "at": [11, 12, 40], "block": "glass_accent" },
+    { "op": "set", "at": [13, 12, 40], "block": "glass_accent" },
+
+    { "op": "box", "from": [5, 5, 12], "to": [5, 14, 13], "block": "glass_main" },
+    { "op": "box", "from": [5, 5, 17], "to": [5, 14, 18], "block": "glass_main" },
+    { "op": "box", "from": [5, 5, 22], "to": [5, 14, 23], "block": "glass_main" },
+    { "op": "box", "from": [5, 5, 27], "to": [5, 14, 28], "block": "glass_main" },
+    { "op": "box", "from": [5, 5, 32], "to": [5, 14, 33], "block": "glass_main" },
+    { "op": "box", "from": [5, 5, 37], "to": [5, 14, 38], "block": "glass_main" },
+
+    { "op": "box", "from": [19, 5, 12], "to": [19, 14, 13], "block": "glass_main" },
+    { "op": "box", "from": [19, 5, 17], "to": [19, 14, 18], "block": "glass_main" },
+    { "op": "box", "from": [19, 5, 22], "to": [19, 14, 23], "block": "glass_main" },
+    { "op": "box", "from": [19, 5, 27], "to": [19, 14, 28], "block": "glass_main" },
+    { "op": "box", "from": [19, 5, 32], "to": [19, 14, 33], "block": "glass_main" },
+    { "op": "box", "from": [19, 5, 37], "to": [19, 14, 38], "block": "glass_main" },
+
+    { "op": "box", "from": [1, 1, 15], "to": [2, 12, 16], "block": "pillar" },
+    { "op": "box", "from": [1, 1, 20], "to": [2, 12, 21], "block": "pillar" },
+    { "op": "box", "from": [1, 1, 25], "to": [2, 12, 26], "block": "pillar" },
+    { "op": "box", "from": [1, 1, 30], "to": [2, 12, 31], "block": "pillar" },
+    { "op": "box", "from": [1, 1, 35], "to": [2, 12, 36], "block": "pillar" },
+    
+    { "op": "box", "from": [3, 11, 15], "to": [4, 14, 16], "block": "wall_detail" },
+    { "op": "box", "from": [3, 11, 20], "to": [4, 14, 21], "block": "wall_detail" },
+    { "op": "box", "from": [3, 11, 25], "to": [4, 14, 26], "block": "wall_detail" },
+    { "op": "box", "from": [3, 11, 30], "to": [4, 14, 31], "block": "wall_detail" },
+    { "op": "box", "from": [3, 11, 35], "to": [4, 14, 36], "block": "wall_detail" },
+
+    { "op": "box", "from": [22, 1, 15], "to": [23, 12, 16], "block": "pillar" },
+    { "op": "box", "from": [22, 1, 20], "to": [23, 12, 21], "block": "pillar" },
+    { "op": "box", "from": [22, 1, 25], "to": [23, 12, 26], "block": "pillar" },
+    { "op": "box", "from": [22, 1, 30], "to": [23, 12, 31], "block": "pillar" },
+    { "op": "box", "from": [22, 1, 35], "to": [23, 12, 36], "block": "pillar" },
+
+    { "op": "box", "from": [20, 11, 15], "to": [21, 14, 16], "block": "wall_detail" },
+    { "op": "box", "from": [20, 11, 20], "to": [21, 14, 21], "block": "wall_detail" },
+    { "op": "box", "from": [20, 11, 25], "to": [21, 14, 26], "block": "wall_detail" },
+    { "op": "box", "from": [20, 11, 30], "to": [21, 14, 31], "block": "wall_detail" },
+    { "op": "box", "from": [20, 11, 35], "to": [21, 14, 36], "block": "wall_detail" },
+
+    { "op": "box", "from": [6, 1, 15], "to": [6, 18, 16], "block": "pillar" },
+    { "op": "box", "from": [6, 1, 20], "to": [6, 18, 21], "block": "pillar" },
+    { "op": "box", "from": [6, 1, 25], "to": [6, 18, 26], "block": "pillar" },
+    { "op": "box", "from": [6, 1, 30], "to": [6, 18, 31], "block": "pillar" },
+    { "op": "box", "from": [6, 1, 35], "to": [6, 18, 36], "block": "pillar" },
+
+    { "op": "box", "from": [18, 1, 15], "to": [18, 18, 16], "block": "pillar" },
+    { "op": "box", "from": [18, 1, 20], "to": [18, 18, 21], "block": "pillar" },
+    { "op": "box", "from": [18, 1, 25], "to": [18, 18, 26], "block": "pillar" },
+    { "op": "box", "from": [18, 1, 30], "to": [18, 18, 31], "block": "pillar" },
+    { "op": "box", "from": [18, 1, 35], "to": [18, 18, 36], "block": "pillar" },
+
+    { "op": "box", "from": [4, 18, 8], "to": [20, 18, 41], "block": "roof_base" },
+    { "op": "box", "from": [5, 19, 8], "to": [19, 19, 41], "block": "roof_base" },
+    { "op": "box", "from": [6, 20, 8], "to": [18, 20, 41], "block": "roof_base" },
+    { "op": "box", "from": [8, 21, 8], "to": [16, 21, 41], "block": "roof_base" },
+    { "op": "box", "from": [10, 22, 8], "to": [14, 22, 41], "block": "roof_base" },
+    { "op": "box", "from": [11, 23, 8], "to": [13, 23, 41], "block": "roof_base" },
+    { "op": "box", "from": [12, 24, 8], "to": [12, 24, 41], "block": "roof_base" },
+    { "op": "box", "from": [12, 25, 8], "to": [12, 25, 41], "block": "grille" },
+
+    { "op": "box", "from": [10, 1, 38], "to": [14, 2, 39], "block": "wall_detail" },
+    { "op": "box", "from": [11, 3, 38], "to": [13, 3, 38], "block": "gold_block" },
+    { "op": "set", "at": [12, 4, 38], "block": "gold_block" },
+    { "op": "set", "at": [12, 5, 38], "block": "gold_block" },
+
+    { "op": "box", "from": [12, 15, 15], "to": [12, 17, 15], "block": "gate" },
+    { "op": "set", "at": [12, 14, 15], "block": "light" },
+    { "op": "box", "from": [12, 15, 25], "to": [12, 17, 25], "block": "gate" },
+    { "op": "set", "at": [12, 14, 25], "block": "light" },
+    { "op": "box", "from": [12, 15, 35], "to": [12, 17, 35], "block": "gate" },
+    { "op": "set", "at": [12, 14, 35], "block": "light" }
+  ]
+}

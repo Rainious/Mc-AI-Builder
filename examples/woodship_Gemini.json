@@ -1,0 +1,239 @@
+{
+  "version": "1.0",
+  "mc_version": "1.20.4",
+  "name": "Sailing_Warship",
+  "size": {
+    "x": 7,
+    "y": 14,
+    "z": 25
+  },
+  "palette": {
+    "hull_dark": "dark_oak_planks",
+    "hull_light": "oak_planks",
+    "deck": "spruce_planks",
+    "mast": "stripped_spruce_wood",
+    "sail": "white_stained_glass",
+    "cannon": "iron_block",
+    "railing": "oak_fence",
+    "door": "iron_door",
+    "light": "glowstone"
+  },
+  "ops": [
+    {
+      "op": "box",
+      "block": "hull_dark",
+      "from": [2, 0, 3],
+      "to": [4, 0, 16]
+    },
+    {
+      "op": "box",
+      "block": "hull_dark",
+      "from": [1, 1, 2],
+      "to": [5, 1, 18]
+    },
+    {
+      "op": "box",
+      "block": "deck",
+      "from": [1, 2, 1],
+      "to": [5, 2, 18]
+    },
+    {
+      "op": "box",
+      "block": "hull_dark",
+      "from": [0, 2, 1],
+      "to": [0, 3, 18]
+    },
+    {
+      "op": "box",
+      "block": "hull_dark",
+      "from": [6, 2, 1],
+      "to": [6, 3, 18]
+    },
+    {
+      "op": "box",
+      "block": "hull_dark",
+      "from": [1, 2, 0],
+      "to": [5, 3, 0]
+    },
+    {
+      "op": "box",
+      "block": "hull_dark",
+      "from": [1, 2, 19],
+      "to": [5, 3, 19]
+    },
+    {
+      "op": "box",
+      "block": "hull_dark",
+      "from": [2, 2, 20],
+      "to": [4, 3, 20]
+    },
+    {
+      "op": "box",
+      "block": "hull_dark",
+      "from": [3, 2, 21],
+      "to": [3, 3, 21]
+    },
+    {
+      "op": "box_hollow",
+      "block": "hull_light",
+      "from": [1, 3, 1],
+      "to": [5, 5, 5]
+    },
+    {
+      "op": "box",
+      "block": "deck",
+      "from": [1, 5, 1],
+      "to": [5, 5, 5]
+    },
+    {
+      "op": "set",
+      "block": "door",
+      "at": [3, 3, 5]
+    },
+    {
+      "op": "set",
+      "block": "door",
+      "at": [3, 4, 5]
+    },
+    {
+      "op": "box",
+      "block": "railing",
+      "from": [1, 6, 1],
+      "to": [5, 6, 1]
+    },
+    {
+      "op": "box",
+      "block": "railing",
+      "from": [1, 6, 1],
+      "to": [1, 6, 5]
+    },
+    {
+      "op": "box",
+      "block": "railing",
+      "from": [5, 6, 1],
+      "to": [5, 6, 5]
+    },
+    {
+      "op": "box",
+      "block": "mast",
+      "from": [3, 3, 10],
+      "to": [3, 12, 10]
+    },
+    {
+      "op": "box",
+      "block": "mast",
+      "from": [3, 3, 16],
+      "to": [3, 10, 16]
+    },
+    {
+      "op": "box",
+      "block": "mast",
+      "from": [3, 3, 21],
+      "to": [3, 3, 22]
+    },
+    {
+      "op": "set",
+      "block": "mast",
+      "at": [3, 4, 23]
+    },
+    {
+      "op": "set",
+      "block": "mast",
+      "at": [3, 5, 24]
+    },
+    {
+      "op": "box",
+      "block": "mast",
+      "from": [0, 9, 10],
+      "to": [6, 9, 10]
+    },
+    {
+      "op": "box",
+      "block": "mast",
+      "from": [1, 5, 10],
+      "to": [5, 5, 10]
+    },
+    {
+      "op": "box",
+      "block": "sail",
+      "from": [0, 8, 11],
+      "to": [6, 8, 11]
+    },
+    {
+      "op": "box",
+      "block": "sail",
+      "from": [0, 6, 12],
+      "to": [6, 7, 12]
+    },
+    {
+      "op": "box",
+      "block": "sail",
+      "from": [1, 5, 11],
+      "to": [5, 5, 11]
+    },
+    {
+      "op": "box",
+      "block": "mast",
+      "from": [1, 8, 16],
+      "to": [5, 8, 16]
+    },
+    {
+      "op": "box",
+      "block": "sail",
+      "from": [1, 7, 17],
+      "to": [5, 7, 17]
+    },
+    {
+      "op": "box",
+      "block": "sail",
+      "from": [1, 5, 18],
+      "to": [5, 6, 18]
+    },
+    {
+      "op": "box",
+      "block": "sail",
+      "from": [1, 4, 17],
+      "to": [5, 4, 17]
+    },
+    {
+      "op": "set",
+      "block": "cannon",
+      "at": [0, 3, 7]
+    },
+    {
+      "op": "set",
+      "block": "cannon",
+      "at": [0, 3, 10]
+    },
+    {
+      "op": "set",
+      "block": "cannon",
+      "at": [0, 3, 13]
+    },
+    {
+      "op": "set",
+      "block": "cannon",
+      "at": [6, 3, 7]
+    },
+    {
+      "op": "set",
+      "block": "cannon",
+      "at": [6, 3, 10]
+    },
+    {
+      "op": "set",
+      "block": "cannon",
+      "at": [6, 3, 13]
+    },
+    {
+      "op": "set",
+      "block": "light",
+      "at": [3, 13, 10]
+    },
+    {
+      "op": "set",
+      "block": "light",
+      "at": [3, 11, 16]
+    }
+  ]
+}

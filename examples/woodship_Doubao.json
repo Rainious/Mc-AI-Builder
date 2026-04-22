@@ -1,0 +1,146 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "version": "1.0",
+  "mc_version": "1.20.4",
+  "name": "sailing_warship",
+  "size": {
+    "x": 30,
+    "y": 12,
+    "z": 10
+  },
+  "palette": {
+    "hull_planks": "oak_planks",
+    "hull_frame": "oak_wood",
+    "deck": "stripped_oak_wood",
+    "mast": "spruce_wood",
+    "sail": "white_stained_glass",
+    "cannon_base": "cobblestone",
+    "metal_fixtures": "iron_block",
+    "hull_siding": "stone",
+    "oak_stairs": "oak_stairs",
+    "cobblestone_stairs": "cobblestone_stairs"
+  },
+  "ops": [
+    {
+      "op": "box",
+      "from": [0, 0, 0],
+      "to": [29, 4, 9],
+      "block": "hull_planks"
+    },
+    {
+      "op": "box_hollow",
+      "from": [1, 1, 1],
+      "to": [28, 3, 8],
+      "block": "hull_frame"
+    },
+    {
+      "op": "box",
+      "from": [0, 4, 0],
+      "to": [29, 4, 9],
+      "block": "deck"
+    },
+    {
+      "op": "line",
+      "from": [15, 4, 4],
+      "to": [15, 11, 4],
+      "block": "mast"
+    },
+    {
+      "op": "box",
+      "from": [13, 5, 4],
+      "to": [17, 10, 4],
+      "block": "sail"
+    },
+    {
+      "op": "box",
+      "from": [5, 3, 1],
+      "to": [7, 3, 2],
+      "block": "cannon_base"
+    },
+    {
+      "op": "box",
+      "from": [10, 3, 1],
+      "to": [12, 3, 2],
+      "block": "cannon_base"
+    },
+    {
+      "op": "box",
+      "from": [18, 3, 1],
+      "to": [20, 3, 2],
+      "block": "cannon_base"
+    },
+    {
+      "op": "box",
+      "from": [23, 3, 1],
+      "to": [25, 3, 2],
+      "block": "cannon_base"
+    },
+    {
+      "op": "box",
+      "from": [5, 3, 7],
+      "to": [7, 3, 8],
+      "block": "cannon_base"
+    },
+    {
+      "op": "box",
+      "from": [10, 3, 7],
+      "to": [12, 3, 8],
+      "block": "cannon_base"
+    },
+    {
+      "op": "box",
+      "from": [18, 3, 7],
+      "to": [20, 3, 8],
+      "block": "cannon_base"
+    },
+    {
+      "op": "box",
+      "from": [23, 3, 7],
+      "to": [25, 3, 8],
+      "block": "cannon_base"
+    },
+    {
+      "op": "box",
+      "from": [0, 0, 0],
+      "to": [29, 4, 0],
+      "block": "hull_siding"
+    },
+    {
+      "op": "box",
+      "from": [0, 0, 9],
+      "to": [29, 4, 9],
+      "block": "hull_siding"
+    },
+    {
+      "op": "set",
+      "at": [28, 4, 4],
+      "block": "oak_stairs"
+    },
+    {
+      "op": "set",
+      "at": [28, 5, 4],
+      "block": "oak_stairs"
+    },
+    {
+      "op": "set",
+      "at": [15, 4, 3],
+      "block": "metal_fixtures"
+    },
+    {
+      "op": "set",
+      "at": [15, 11, 4],
+      "block": "metal_fixtures"
+    },
+    {
+      "op": "box",
+      "from": [0, 5, 4],
+      "to": [3, 7, 6],
+      "block": "hull_frame"
+    },
+    {
+      "op": "set",
+      "at": [1, 6, 5],
+      "block": "cobblestone_stairs"
+    }
+  ]
+}

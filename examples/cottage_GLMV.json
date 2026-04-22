@@ -1,0 +1,62 @@
+
+{
+  "version": "1.0",
+  "mc_version": "1.20.4",
+  "name": "farmhouse_cottage",
+  "size": {
+    "x": 10,
+    "y": 6,
+    "z": 10
+  },
+  "palette": {
+    "cobblestone": "minecraft:cobblestone",
+    "oak_planks": "minecraft:oak_planks",
+    "spruce_planks": "minecraft:spruce_planks",
+    "iron_door": "minecraft:iron_door",
+    "white_stained_glass": "minecraft:white_stained_glass"
+  },
+  "ops": [
+    {
+      "op": "box",
+      "from": [0, 0, 0],
+      "to": [9, 0, 9],
+      "block": "cobblestone"
+    },
+    {
+      "op": "box",
+      "from": [0, 1, 0],
+      "to": [9, 4, 9],
+      "block": "oak_planks"
+    },
+    {
+      "op": "box",
+      "from": [0, 4, 0],
+      "to": [9, 5, 9],
+      "block": "spruce_planks"
+    },
+    {
+      "op": "box",
+      "from": [4, 1, 5],
+      "to": [5, 2, 5],
+      "block": "iron_door"
+    },
+    {
+      "op": "box",
+      "from": [2, 2, 0],
+      "to": [3, 3, 0],
+      "block": "white_stained_glass"
+    },
+    {
+      "op": "box",
+      "from": [6, 2, 0],
+      "to": [7, 3, 0],
+      "block": "white_stained_glass"
+    },
+    {
+      "op": "box",
+      "from": [4, 5, 4],
+      "to": [5, 5, 5],
+      "block": "cobblestone"
+    }
+  ]
+}

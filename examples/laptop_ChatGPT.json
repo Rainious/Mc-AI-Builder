@@ -1,0 +1,115 @@
+{
+"version": "1.0",
+"mc_version": "1.20.4",
+"name": "laptop_computer",
+"size": {
+"x": 12,
+"y": 8,
+"z": 7
+},
+"palette": {
+"chassis": "iron_block",
+"base_trim": "stone",
+"screen_frame": "stone",
+"screen_glass": "light_blue_stained_glass",
+"screen_highlight": "white_stained_glass",
+"keyboard": "stone_pressure_plate",
+"trackpad": "white_stained_glass",
+"hinge": "oak_fence"
+},
+"ops": [
+{
+"op": "box",
+"from": [0, 0, 0],
+"to": [11, 1, 6],
+"block": "chassis"
+},
+{
+"op": "line",
+"from": [0, 1, 0],
+"to": [11, 1, 0],
+"block": "base_trim"
+},
+{
+"op": "line",
+"from": [0, 1, 6],
+"to": [11, 1, 6],
+"block": "base_trim"
+},
+{
+"op": "line",
+"from": [0, 1, 0],
+"to": [0, 1, 6],
+"block": "base_trim"
+},
+{
+"op": "line",
+"from": [11, 1, 0],
+"to": [11, 1, 6],
+"block": "base_trim"
+},
+{
+"op": "set",
+"at": [2, 2, 1],
+"block": "hinge"
+},
+{
+"op": "set",
+"at": [5, 2, 1],
+"block": "hinge"
+},
+{
+"op": "set",
+"at": [8, 2, 1],
+"block": "hinge"
+},
+{
+"op": "box",
+"from": [0, 2, 0],
+"to": [11, 7, 0],
+"block": "screen_frame"
+},
+{
+"op": "box",
+"from": [1, 3, 0],
+"to": [10, 6, 0],
+"block": "screen_glass"
+},
+{
+"op": "line",
+"from": [2, 4, 0],
+"to": [9, 4, 0],
+"block": "screen_highlight"
+},
+{
+"op": "line",
+"from": [3, 5, 0],
+"to": [8, 5, 0],
+"block": "screen_highlight"
+},
+{
+"op": "line",
+"from": [1, 2, 2],
+"to": [10, 2, 2],
+"block": "keyboard"
+},
+{
+"op": "line",
+"from": [1, 2, 3],
+"to": [10, 2, 3],
+"block": "keyboard"
+},
+{
+"op": "line",
+"from": [1, 2, 4],
+"to": [10, 2, 4],
+"block": "keyboard"
+},
+{
+"op": "box",
+"from": [4, 2, 5],
+"to": [7, 2, 5],
+"block": "trackpad"
+}
+]
+}

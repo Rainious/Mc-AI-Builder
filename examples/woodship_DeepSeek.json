@@ -1,0 +1,287 @@
+{
+  "version": "1.0",
+  "mc_version": "1.20.4",
+  "name": "Sailing_Warship",
+  "size": {
+    "x": 25,
+    "y": 28,
+    "z": 11
+  },
+  "palette": {
+    "oak_planks": "minecraft:oak_planks",
+    "spruce_planks": "minecraft:spruce_planks",
+    "dark_oak_planks": "minecraft:dark_oak_planks",
+    "oak_wood": "minecraft:oak_wood",
+    "spruce_wood": "minecraft:spruce_wood",
+    "stripped_oak_wood": "minecraft:stripped_oak_wood",
+    "stripped_spruce_wood": "minecraft:stripped_spruce_wood",
+    "oak_fence": "minecraft:oak_fence",
+    "oak_stairs": "minecraft:oak_stairs",
+    "cobblestone_stairs": "minecraft:cobblestone_stairs",
+    "white_stained_glass": "minecraft:white_stained_glass",
+    "light_blue_stained_glass": "minecraft:light_blue_stained_glass",
+    "iron_block": "minecraft:iron_block",
+    "bricks": "minecraft:bricks",
+    "glowstone": "minecraft:glowstone",
+    "glass": "minecraft:glass"
+  },
+  "ops": [
+    {
+      "op": "box",
+      "from": [0, 0, 0],
+      "to": [24, 0, 10],
+      "block": "oak_planks"
+    },
+    {
+      "op": "box_hollow",
+      "from": [1, 1, 1],
+      "to": [23, 5, 9],
+      "block": "spruce_planks"
+    },
+    {
+      "op": "box",
+      "from": [1, 1, 1],
+      "to": [23, 1, 9],
+      "block": "oak_planks"
+    },
+    {
+      "op": "box",
+      "from": [0, 1, 0],
+      "to": [24, 5, 0],
+      "block": "oak_wood"
+    },
+    {
+      "op": "box",
+      "from": [0, 1, 10],
+      "to": [24, 5, 10],
+      "block": "oak_wood"
+    },
+    {
+      "op": "box",
+      "from": [0, 1, 0],
+      "to": [0, 5, 10],
+      "block": "oak_wood"
+    },
+    {
+      "op": "box",
+      "from": [24, 1, 0],
+      "to": [24, 5, 10],
+      "block": "oak_wood"
+    },
+    {
+      "op": "set",
+      "at": [0, 5, 0],
+      "block": "oak_stairs"
+    },
+    {
+      "op": "set",
+      "at": [0, 5, 10],
+      "block": "oak_stairs"
+    },
+    {
+      "op": "set",
+      "at": [24, 5, 0],
+      "block": "oak_stairs"
+    },
+    {
+      "op": "set",
+      "at": [24, 5, 10],
+      "block": "oak_stairs"
+    },
+    {
+      "op": "box",
+      "from": [2, 6, 2],
+      "to": [22, 7, 8],
+      "block": "dark_oak_planks"
+    },
+    {
+      "op": "box_hollow",
+      "from": [3, 8, 3],
+      "to": [21, 9, 7],
+      "block": "spruce_planks"
+    },
+    {
+      "op": "box",
+      "from": [3, 8, 3],
+      "to": [21, 8, 7],
+      "block": "oak_planks"
+    },
+    {
+      "op": "box",
+      "from": [2, 10, 2],
+      "to": [22, 11, 8],
+      "block": "dark_oak_planks"
+    },
+    {
+      "op": "line",
+      "from": [12, 1, 5],
+      "to": [12, 24, 5],
+      "block": "spruce_wood"
+    },
+    {
+      "op": "line",
+      "from": [6, 8, 5],
+      "to": [6, 20, 5],
+      "block": "stripped_spruce_wood"
+    },
+    {
+      "op": "line",
+      "from": [18, 8, 5],
+      "to": [18, 18, 5],
+      "block": "stripped_spruce_wood"
+    },
+    {
+      "op": "line",
+      "from": [4, 11, 5],
+      "to": [4, 15, 5],
+      "block": "stripped_oak_wood"
+    },
+    {
+      "op": "line",
+      "from": [20, 11, 5],
+      "to": [20, 14, 5],
+      "block": "stripped_oak_wood"
+    },
+    {
+      "op": "box",
+      "from": [8, 12, 5],
+      "to": [16, 16, 5],
+      "block": "white_stained_glass"
+    },
+    {
+      "op": "box",
+      "from": [5, 15, 5],
+      "to": [7, 18, 5],
+      "block": "white_stained_glass"
+    },
+    {
+      "op": "box",
+      "from": [17, 13, 5],
+      "to": [19, 16, 5],
+      "block": "white_stained_glass"
+    },
+    {
+      "op": "box",
+      "from": [3, 14, 5],
+      "to": [4, 15, 5],
+      "block": "light_blue_stained_glass"
+    },
+    {
+      "op": "box",
+      "from": [20, 13, 5],
+      "to": [21, 14, 5],
+      "block": "light_blue_stained_glass"
+    },
+    {
+      "op": "line",
+      "from": [12, 24, 5],
+      "to": [12, 27, 5],
+      "block": "oak_fence"
+    },
+    {
+      "op": "set",
+      "at": [12, 27, 5],
+      "block": "white_stained_glass"
+    },
+    {
+      "op": "box",
+      "from": [11, 21, 4],
+      "to": [13, 23, 6],
+      "block": "white_stained_glass"
+    },
+    {
+      "op": "box",
+      "from": [11, 25, 4],
+      "to": [13, 26, 6],
+      "block": "white_stained_glass"
+    },
+    {
+      "op": "line",
+      "from": [0, 2, 5],
+      "to": [3, 2, 5],
+      "block": "oak_fence"
+    },
+    {
+      "op": "line",
+      "from": [24, 2, 5],
+      "to": [21, 2, 5],
+      "block": "oak_fence"
+    },
+    {
+      "op": "box",
+      "from": [0, 3, 4],
+      "to": [2, 5, 6],
+      "block": "glass"
+    },
+    {
+      "op": "box",
+      "from": [22, 3, 4],
+      "to": [24, 5, 6],
+      "block": "glass"
+    },
+    {
+      "op": "set",
+      "at": [12, 2, 2],
+      "block": "glowstone"
+    },
+    {
+      "op": "set",
+      "at": [12, 2, 8],
+      "block": "glowstone"
+    },
+    {
+      "op": "set",
+      "at": [5, 2, 5],
+      "block": "bricks"
+    },
+    {
+      "op": "set",
+      "at": [19, 2, 5],
+      "block": "bricks"
+    },
+    {
+      "op": "line",
+      "from": [1, 1, 5],
+      "to": [4, 1, 5],
+      "block": "iron_block"
+    },
+    {
+      "op": "line",
+      "from": [20, 1, 5],
+      "to": [23, 1, 5],
+      "block": "iron_block"
+    },
+    {
+      "op": "box",
+      "from": [0, 1, 1],
+      "to": [1, 4, 9],
+      "block": "cobblestone_stairs"
+    },
+    {
+      "op": "box",
+      "from": [23, 1, 1],
+      "to": [24, 4, 9],
+      "block": "cobblestone_stairs"
+    },
+    {
+      "op": "set",
+      "at": [12, 10, 1],
+      "block": "oak_stairs"
+    },
+    {
+      "op": "set",
+      "at": [12, 10, 9],
+      "block": "oak_stairs"
+    },
+    {
+      "op": "set",
+      "at": [12, 12, 1],
+      "block": "oak_fence"
+    },
+    {
+      "op": "set",
+      "at": [12, 12, 9],
+      "block": "oak_fence"
+    }
+  ]
+}

@@ -1,0 +1,438 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "version": "1.0",
+  "mc_version": "1.20.4",
+  "name": "rustic_farmhouse_cabin",
+  "size": {
+    "x": 12,
+    "y": 11,
+    "z": 12
+  },
+  "palette": {
+    "floor": "minecraft:oak_planks",
+    "wall": "minecraft:oak_planks",
+    "roof": "minecraft:spruce_planks",
+    "roof_trim": "minecraft:dark_oak_planks",
+    "glass": "minecraft:white_stained_glass",
+    "door_lower": "minecraft:iron_door[half=lower,facing=south]",
+    "door_upper": "minecraft:iron_door[half=upper,facing=south]",
+    "fence": "minecraft:oak_fence",
+    "cobblestone": "minecraft:cobblestone",
+    "mossy_cobblestone": "minecraft:mossy_cobblestone",
+    "glowstone": "minecraft:glowstone",
+    "stairs": "minecraft:oak_stairs[facing=north]",
+    "button": "minecraft:stone_button[face=wall,facing=south]"
+  },
+  "ops": [
+    {
+      "op": "box",
+      "from": [0, 0, 0],
+      "to": [10, 0, 10],
+      "block": "floor",
+      "comment": "Foundation floor"
+    },
+    {
+      "op": "box_hollow",
+      "from": [0, 1, 0],
+      "to": [10, 4, 10],
+      "block": "wall",
+      "comment": "Main walls with hollow interior"
+    },
+    {
+      "op": "box",
+      "from": [0, 5, 0],
+      "to": [10, 5, 10],
+      "block": "floor",
+      "comment": "Second floor/ceiling layer"
+    },
+    {
+      "op": "box_hollow",
+      "from": [0, 6, 0],
+      "to": [10, 6, 10],
+      "block": "wall",
+      "comment": "Attic knee walls (y=6)"
+    },
+    {
+      "op": "set",
+      "at": [5, 1, 10],
+      "block": "door_lower",
+      "comment": "Front door lower half"
+    },
+    {
+      "op": "set",
+      "at": [5, 2, 10],
+      "block": "door_upper",
+      "comment": "Front door upper half"
+    },
+    {
+      "op": "set",
+      "at": [5, 1, 9],
+      "block": "button",
+      "comment": "Button next to door"
+    },
+    {
+      "op": "set",
+      "at": [2, 2, 0],
+      "block": "glass",
+      "comment": "Front left window (glass placed in hollow wall)"
+    },
+    {
+      "op": "set",
+      "at": [3, 2, 0],
+      "block": "glass"
+    },
+    {
+      "op": "set",
+      "at": [2, 3, 0],
+      "block": "glass"
+    },
+    {
+      "op": "set",
+      "at": [3, 3, 0],
+      "block": "glass"
+    },
+    {
+      "op": "set",
+      "at": [7, 2, 0],
+      "block": "glass",
+      "comment": "Front right window"
+    },
+    {
+      "op": "set",
+      "at": [8, 2, 0],
+      "block": "glass"
+    },
+    {
+      "op": "set",
+      "at": [7, 3, 0],
+      "block": "glass"
+    },
+    {
+      "op": "set",
+      "at": [8, 3, 0],
+      "block": "glass"
+    },
+    {
+      "op": "set",
+      "at": [2, 2, 10],
+      "block": "glass",
+      "comment": "Rear left window"
+    },
+    {
+      "op": "set",
+      "at": [3, 2, 10],
+      "block": "glass"
+    },
+    {
+      "op": "set",
+      "at": [2, 3, 10],
+      "block": "glass"
+    },
+    {
+      "op": "set",
+      "at": [3, 3, 10],
+      "block": "glass"
+    },
+    {
+      "op": "set",
+      "at": [7, 2, 10],
+      "block": "glass",
+      "comment": "Rear right window"
+    },
+    {
+      "op": "set",
+      "at": [8, 2, 10],
+      "block": "glass"
+    },
+    {
+      "op": "set",
+      "at": [7, 3, 10],
+      "block": "glass"
+    },
+    {
+      "op": "set",
+      "at": [8, 3, 10],
+      "block": "glass"
+    },
+    {
+      "op": "set",
+      "at": [0, 2, 2],
+      "block": "glass",
+      "comment": "Left side window"
+    },
+    {
+      "op": "set",
+      "at": [0, 2, 3],
+      "block": "glass"
+    },
+    {
+      "op": "set",
+      "at": [0, 3, 2],
+      "block": "glass"
+    },
+    {
+      "op": "set",
+      "at": [0, 3, 3],
+      "block": "glass"
+    },
+    {
+      "op": "set",
+      "at": [0, 2, 7],
+      "block": "glass",
+      "comment": "Left side window 2"
+    },
+    {
+      "op": "set",
+      "at": [0, 2, 8],
+      "block": "glass"
+    },
+    {
+      "op": "set",
+      "at": [0, 3, 7],
+      "block": "glass"
+    },
+    {
+      "op": "set",
+      "at": [0, 3, 8],
+      "block": "glass"
+    },
+    {
+      "op": "set",
+      "at": [10, 2, 2],
+      "block": "glass",
+      "comment": "Right side window"
+    },
+    {
+      "op": "set",
+      "at": [10, 2, 3],
+      "block": "glass"
+    },
+    {
+      "op": "set",
+      "at": [10, 3, 2],
+      "block": "glass"
+    },
+    {
+      "op": "set",
+      "at": [10, 3, 3],
+      "block": "glass"
+    },
+    {
+      "op": "set",
+      "at": [10, 2, 7],
+      "block": "glass",
+      "comment": "Right side window 2"
+    },
+    {
+      "op": "set",
+      "at": [10, 2, 8],
+      "block": "glass"
+    },
+    {
+      "op": "set",
+      "at": [10, 3, 7],
+      "block": "glass"
+    },
+    {
+      "op": "set",
+      "at": [10, 3, 8],
+      "block": "glass"
+    },
+    {
+      "op": "box",
+      "from": [4, 1, 1],
+      "to": [6, 1, 3],
+      "block": "cobblestone",
+      "comment": "Cobblestone entry floor detail"
+    },
+    {
+      "op": "set",
+      "at": [7, 1, 7],
+      "block": "stairs",
+      "comment": "Staircase bottom step"
+    },
+    {
+      "op": "line",
+      "from": [8, 1, 7],
+      "to": [9, 1, 7],
+      "block": "stairs",
+      "comment": "Axis-aligned steps (x-axis)"
+    },
+    {
+      "op": "set",
+      "at": [7, 2, 7],
+      "block": "stairs",
+      "comment": "Second step level"
+    },
+    {
+      "op": "line",
+      "from": [8, 2, 7],
+      "to": [9, 2, 7],
+      "block": "stairs"
+    },
+    {
+      "op": "set",
+      "at": [7, 3, 7],
+      "block": "stairs",
+      "comment": "Third step level"
+    },
+    {
+      "op": "line",
+      "from": [8, 3, 7],
+      "to": [9, 3, 7],
+      "block": "stairs"
+    },
+    {
+      "op": "set",
+      "at": [7, 4, 7],
+      "block": "stairs",
+      "comment": "Fourth step level"
+    },
+    {
+      "op": "line",
+      "from": [8, 4, 7],
+      "to": [9, 4, 7],
+      "block": "stairs"
+    },
+    {
+      "op": "box",
+      "from": [1, 2, 1],
+      "to": [3, 2, 1],
+      "block": "glowstone",
+      "comment": "Interior lighting"
+    },
+    {
+      "op": "box",
+      "from": [7, 2, 1],
+      "to": [9, 2, 1],
+      "block": "glowstone"
+    },
+    {
+      "op": "box",
+      "from": [1, 2, 9],
+      "to": [3, 2, 9],
+      "block": "glowstone"
+    },
+    {
+      "op": "box",
+      "from": [7, 2, 9],
+      "to": [9, 2, 9],
+      "block": "glowstone"
+    },
+    {
+      "op": "box",
+      "from": [0, 7, 0],
+      "to": [10, 7, 10],
+      "block": "roof",
+      "comment": "Roof base layer"
+    },
+    {
+      "op": "box",
+      "from": [1, 8, 1],
+      "to": [9, 8, 9],
+      "block": "roof",
+      "comment": "Roof second layer"
+    },
+    {
+      "op": "box",
+      "from": [2, 9, 2],
+      "to": [8, 9, 8],
+      "block": "roof",
+      "comment": "Roof third layer"
+    },
+    {
+      "op": "box",
+      "from": [3, 10, 3],
+      "to": [7, 10, 7],
+      "block": "roof",
+      "comment": "Roof peak"
+    },
+    {
+      "op": "box",
+      "from": [0, 7, 0],
+      "to": [10, 7, 0],
+      "block": "roof_trim",
+      "comment": "Roof edge trims"
+    },
+    {
+      "op": "box",
+      "from": [0, 7, 10],
+      "to": [10, 7, 10],
+      "block": "roof_trim"
+    },
+    {
+      "op": "box",
+      "from": [0, 7, 1],
+      "to": [0, 7, 9],
+      "block": "roof_trim"
+    },
+    {
+      "op": "box",
+      "from": [10, 7, 1],
+      "to": [10, 7, 9],
+      "block": "roof_trim"
+    },
+    {
+      "op": "set",
+      "at": [2, 7, 10],
+      "block": "glass",
+      "comment": "Attic window front"
+    },
+    {
+      "op": "set",
+      "at": [3, 7, 10],
+      "block": "glass"
+    },
+    {
+      "op": "set",
+      "at": [7, 7, 10],
+      "block": "glass",
+      "comment": "Attic window front 2"
+    },
+    {
+      "op": "set",
+      "at": [8, 7, 10],
+      "block": "glass"
+    },
+    {
+      "op": "box",
+      "from": [0, 0, 0],
+      "to": [10, 0, 0],
+      "block": "cobblestone",
+      "comment": "Foundation trim front"
+    },
+    {
+      "op": "box",
+      "from": [0, 0, 10],
+      "to": [10, 0, 10],
+      "block": "cobblestone"
+    },
+    {
+      "op": "box",
+      "from": [0, 0, 1],
+      "to": [0, 0, 9],
+      "block": "mossy_cobblestone",
+      "comment": "Side foundation trim"
+    },
+    {
+      "op": "box",
+      "from": [10, 0, 1],
+      "to": [10, 0, 9],
+      "block": "mossy_cobblestone"
+    },
+    {
+      "op": "box",
+      "from": [3, 1, 9],
+      "to": [7, 4, 9],
+      "block": "fence",
+      "comment": "Interior railing near stair"
+    },
+    {
+      "op": "box",
+      "from": [8, 1, 7],
+      "to": [8, 4, 7],
+      "block": "fence",
+      "comment": "Stair railing"
+    }
+  ]
+}

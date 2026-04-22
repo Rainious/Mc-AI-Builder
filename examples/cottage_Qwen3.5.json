@@ -1,0 +1,129 @@
+{
+  "version": "1.0",
+  "mc_version": "1.20.4",
+  "name": "rustic_farmhouse_cabin",
+  "size": {
+    "x": 11,
+    "y": 6,
+    "z": 9
+  },
+  "palette": {
+    "foundation": "cobblestone",
+    "floor": "oak_planks",
+    "wall": "spruce_planks",
+    "log": "oak_wood",
+    "roof": "spruce_planks",
+    "roof_trim": "oak_stairs",
+    "window": "glass",
+    "door": "iron_door",
+    "light": "glowstone",
+    "fence": "oak_fence"
+  },
+  "ops": [
+    {
+      "op": "box",
+      "from": [1, 0, 1],
+      "to": [9, 0, 7],
+      "block": "foundation"
+    },
+    {
+      "op": "box",
+      "from": [1, 1, 1],
+      "to": [9, 1, 7],
+      "block": "floor"
+    },
+    {
+      "op": "box_hollow",
+      "from": [1, 1, 1],
+      "to": [9, 4, 7],
+      "block": "wall"
+    },
+    {
+      "op": "box",
+      "from": [1, 1, 1],
+      "to": [1, 4, 1],
+      "block": "log"
+    },
+    {
+      "op": "box",
+      "from": [9, 1, 1],
+      "to": [9, 4, 1],
+      "block": "log"
+    },
+    {
+      "op": "box",
+      "from": [1, 1, 7],
+      "to": [1, 4, 7],
+      "block": "log"
+    },
+    {
+      "op": "box",
+      "from": [9, 1, 7],
+      "to": [9, 4, 7],
+      "block": "log"
+    },
+    {
+      "op": "box",
+      "from": [1, 5, 1],
+      "to": [9, 5, 7],
+      "block": "roof"
+    },
+    {
+      "op": "box_hollow",
+      "from": [1, 5, 1],
+      "to": [9, 5, 7],
+      "block": "roof_trim"
+    },
+    {
+      "op": "set",
+      "at": [3, 3, 1],
+      "block": "window"
+    },
+    {
+      "op": "set",
+      "at": [7, 3, 1],
+      "block": "window"
+    },
+    {
+      "op": "set",
+      "at": [3, 3, 7],
+      "block": "window"
+    },
+    {
+      "op": "set",
+      "at": [7, 3, 7],
+      "block": "window"
+    },
+    {
+      "op": "set",
+      "at": [1, 3, 4],
+      "block": "window"
+    },
+    {
+      "op": "set",
+      "at": [9, 3, 4],
+      "block": "window"
+    },
+    {
+      "op": "set",
+      "at": [5, 2, 1],
+      "block": "door"
+    },
+    {
+      "op": "set",
+      "at": [5, 3, 1],
+      "block": "door"
+    },
+    {
+      "op": "set",
+      "at": [5, 3, 4],
+      "block": "light"
+    },
+    {
+      "op": "box_hollow",
+      "from": [0, 1, 0],
+      "to": [10, 1, 8],
+      "block": "fence"
+    }
+  ]
+}

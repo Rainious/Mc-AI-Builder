@@ -86,8 +86,8 @@
   {
     "id": 42,
     "name": "deepslate_iron_ore",
-    "color": "银灰色",
-    "material": "金属",
+    "color": "灰色为主、褐色点缀",
+    "material": "矿石",
     "size": "完整方块"
   },
   {
@@ -247,23 +247,23 @@
   {
     "id": 169,
     "name": "mossy_cobblestone",
-    "color": "灰色",
+    "color": "灰色掺杂绿色苔藓",
     "material": "石质",
     "size": "完整方块"
   },
   {
     "id": 176,
     "name": "oak_stairs",
-    "color": "其他",
-    "material": "其他",
+    "color": "木色",
+    "material": "木质",
     "size": "楼梯"
   },
   {
     "id": 178,
     "name": "redstone_wire",
-    "color": "灰色",
-    "material": "石质",
-    "size": "完整方块"
+    "color": "深红色",
+    "material": "粉末状，连接起来则为线状",
+    "size": "不完整方块"
   },
   {
     "id": 198,
@@ -284,55 +284,55 @@
     "name": "iron_door",
     "color": "银灰色",
     "material": "金属",
-    "size": "完整方块"
+    "size": "2格高不完整方块"
   },
   {
     "id": 242,
     "name": "redstone_ore",
-    "color": "灰色",
-    "material": "石质",
+    "color": "灰色掺杂红色",
+    "material": "矿石",
     "size": "完整方块"
   },
   {
     "id": 243,
     "name": "deepslate_redstone_ore",
-    "color": "灰色",
-    "material": "石质",
+    "color": "深灰色掺杂红色",
+    "material": "矿石",
     "size": "完整方块"
   },
   {
     "id": 244,
     "name": "redstone_torch",
-    "color": "灰色",
-    "material": "石质",
-    "size": "完整方块"
+    "color": "木质把手红色顶端",
+    "material": "暗淡火把",
+    "size": "不完整方块"
   },
   {
     "id": 245,
     "name": "redstone_wall_torch",
-    "color": "灰色",
-    "material": "石质",
-    "size": "完整方块"
+    "color": "木质把手红色顶端",
+    "material": "暗淡火把",
+    "size": "不完整方块，redstone_torch的墙面版本"
   },
   {
     "id": 246,
     "name": "stone_button",
     "color": "灰色",
     "material": "石质",
-    "size": "完整方块"
+    "size": "不完整方块"
   },
   {
     "id": 254,
     "name": "oak_fence",
-    "color": "其他",
-    "material": "金属",
+    "color": "木色",
+    "material": "木质",
     "size": "栅栏"
   },
   {
     "id": 262,
     "name": "glowstone",
-    "color": "灰色",
-    "material": "石质",
+    "color": "金色掺杂深黄色",
+    "material": "有鹅卵石纹理，发光",
     "size": "完整方块"
   },
   {
@@ -375,6 +375,153 @@
     "name": "lime_stained_glass",
     "color": "透明",
     "material": "玻璃",
+    "size": "完整方块"
+  },
+  {
+    "id": 163,
+    "name": "gold_block",
+    "color": "金黄色",
+    "material": "金属",
+    "size": "完整方块"
+  },
+  {
+    "id": 167,
+    "name": "bookshelf",
+    "color": "棕色",
+    "material": "木质",
+    "size": "完整方块"
+  },
+  {
+    "id": 170,
+    "name": "obsidian",
+    "color": "黑色",
+    "material": "石质",
+    "size": "完整方块"
+  },
+  {
+    "id": 177,
+    "name": "chest",
+    "color": "棕色",
+    "material": "木质",
+    "size": "完整方块"
+  },
+  {
+    "id": 181,
+    "name": "diamond_block",
+    "color": "青色",
+    "material": "宝石",
+    "size": "完整方块"
+  },
+  {
+    "id": 182,
+    "name": "crafting_table",
+    "color": "棕色",
+    "material": "木质",
+    "size": "完整方块"
+  },
+  {
+    "id": 185,
+    "name": "furnace",
+    "color": "灰色",
+    "material": "石质",
+    "size": "完整方块"
+  },
+  {
+    "id": 417,
+    "name": "nether_quartz_ore",
+    "color": "红褐色",
+    "material": "石质",
+    "size": "完整方块"
+  },
+  {
+    "id": 419,
+    "name": "quartz_block",
+    "color": "白色",
+    "material": "石质",
+    "size": "完整方块"
+  },
+  {
+    "id": 420,
+    "name": "chiseled_quartz_block",
+    "color": "白色",
+    "material": "石质",
+    "size": "完整方块"
+  },
+  {
+    "id": 421,
+    "name": "quartz_pillar",
+    "color": "白色",
+    "material": "石质",
+    "size": "完整方块"
+  },
+  {
+    "id": 422,
+    "name": "quartz_stairs",
+    "color": "白色",
+    "material": "石质",
+    "size": "楼梯"
+  },
+  {
+    "id": 868,
+    "name": "quartz_bricks",
+    "color": "白色",
+    "material": "石质",
+    "size": "完整方块"
+  },
+  {
+    "id": 6,
+    "name": "andesite",
+    "color": "灰色",
+    "material": "石质",
+    "size": "完整方块"
+  },
+  {
+    "id": 7,
+    "name": "polished_andesite",
+    "color": "灰色",
+    "material": "石质",
+    "size": "完整方块"
+  },
+  {
+    "id": 128,
+    "name": "piston",
+    "color": "多色",
+    "material": "机械",
+    "size": "完整方块"
+  },
+  {
+    "id": 164,
+    "name": "iron_block",
+    "color": "银灰色",
+    "material": "金属",
+    "size": "完整方块"
+  },
+  {
+    "id": 308,
+    "name": "iron_bars",
+    "color": "银灰色",
+    "material": "金属",
+    "size": "栏杆"
+  },
+  {
+    "id": 563,
+    "name": "smooth_stone",
+    "color": "浅灰色",
+    "material": "石质",
+    "size": "完整方块"
+  },
+  {
+    "id": 990,
+    "name": "copper_grate",
+    "color": "橙色",
+    "material": "金属",
+    "size": "完整方块"
+  },
+  {
+    "id": 1028,
+    "name": "polished_deepslate",
+    "color": "深灰色",
+    "material": "石质",
     "size": "完整方块"
   }
 ]

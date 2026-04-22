@@ -1,0 +1,328 @@
+{
+"version": "1.0",
+"mc_version": "1.20.4",
+"name": "sailing_warship",
+"size": {
+"x": 34,
+"y": 20,
+"z": 13
+},
+"palette": {
+"hull": "dark_oak_planks",
+"deck": "oak_planks",
+"trim": "stripped_oak_wood",
+"mast": "oak_fence",
+"sail": "white_stained_glass",
+"window": "light_blue_stained_glass",
+"gunport": "iron_ore",
+"anchor": "iron_block",
+"lantern": "glowstone",
+"detail": "stone_button"
+},
+"ops": [
+{
+"op": "box",
+"from": [5, 0, 3],
+"to": [26, 3, 9],
+"block": "hull"
+},
+{
+"op": "box",
+"from": [7, 4, 3],
+"to": [24, 5, 9],
+"block": "hull"
+},
+{
+"op": "box",
+"from": [2, 0, 4],
+"to": [4, 2, 8],
+"block": "hull"
+},
+{
+"op": "box",
+"from": [0, 0, 5],
+"to": [1, 1, 7],
+"block": "hull"
+},
+{
+"op": "box",
+"from": [5, 3, 4],
+"to": [6, 4, 8],
+"block": "hull"
+},
+{
+"op": "box",
+"from": [27, 0, 2],
+"to": [30, 4, 10],
+"block": "hull"
+},
+{
+"op": "box",
+"from": [31, 0, 3],
+"to": [32, 5, 9],
+"block": "hull"
+},
+{
+"op": "box",
+"from": [33, 0, 4],
+"to": [33, 4, 8],
+"block": "hull"
+},
+{
+"op": "box",
+"from": [6, 6, 3],
+"to": [26, 6, 9],
+"block": "deck"
+},
+{
+"op": "box",
+"from": [7, 7, 4],
+"to": [11, 8, 8],
+"block": "deck"
+},
+{
+"op": "box",
+"from": [22, 7, 3],
+"to": [29, 8, 9],
+"block": "deck"
+},
+{
+"op": "box",
+"from": [26, 9, 3],
+"to": [33, 12, 9],
+"block": "hull"
+},
+{
+"op": "box_hollow",
+"from": [27, 10, 4],
+"to": [33, 12, 8],
+"block": "trim"
+},
+{
+"op": "line",
+"from": [28, 10, 4],
+"to": [32, 10, 4],
+"block": "window"
+},
+{
+"op": "line",
+"from": [28, 10, 8],
+"to": [32, 10, 8],
+"block": "window"
+},
+{
+"op": "line",
+"from": [7, 5, 3],
+"to": [24, 5, 3],
+"block": "trim"
+},
+{
+"op": "line",
+"from": [7, 5, 9],
+"to": [24, 5, 9],
+"block": "trim"
+},
+{
+"op": "line",
+"from": [6, 6, 3],
+"to": [26, 6, 3],
+"block": "trim"
+},
+{
+"op": "line",
+"from": [6, 6, 9],
+"to": [26, 6, 9],
+"block": "trim"
+},
+{
+"op": "line",
+"from": [8, 4, 3],
+"to": [22, 4, 3],
+"block": "gunport"
+},
+{
+"op": "line",
+"from": [8, 4, 9],
+"to": [22, 4, 9],
+"block": "gunport"
+},
+{
+"op": "set",
+"at": [4, 2, 4],
+"block": "anchor"
+},
+{
+"op": "set",
+"at": [4, 2, 8],
+"block": "anchor"
+},
+{
+"op": "line",
+"from": [0, 6, 6],
+"to": [6, 6, 6],
+"block": "mast"
+},
+{
+"op": "line",
+"from": [10, 7, 6],
+"to": [10, 17, 6],
+"block": "mast"
+},
+{
+"op": "line",
+"from": [17, 7, 6],
+"to": [17, 18, 6],
+"block": "mast"
+},
+{
+"op": "line",
+"from": [25, 7, 6],
+"to": [25, 15, 6],
+"block": "mast"
+},
+{
+"op": "line",
+"from": [10, 13, 3],
+"to": [10, 13, 9],
+"block": "mast"
+},
+{
+"op": "line",
+"from": [10, 10, 4],
+"to": [10, 10, 8],
+"block": "mast"
+},
+{
+"op": "line",
+"from": [17, 14, 2],
+"to": [17, 14, 10],
+"block": "mast"
+},
+{
+"op": "line",
+"from": [17, 11, 3],
+"to": [17, 11, 9],
+"block": "mast"
+},
+{
+"op": "line",
+"from": [25, 12, 3],
+"to": [25, 12, 9],
+"block": "mast"
+},
+{
+"op": "box",
+"from": [8, 11, 6],
+"to": [12, 15, 6],
+"block": "sail"
+},
+{
+"op": "box",
+"from": [9, 8, 6],
+"to": [11, 11, 6],
+"block": "sail"
+},
+{
+"op": "box",
+"from": [15, 12, 6],
+"to": [19, 17, 6],
+"block": "sail"
+},
+{
+"op": "box",
+"from": [16, 9, 6],
+"to": [18, 13, 6],
+"block": "sail"
+},
+{
+"op": "box",
+"from": [24, 10, 6],
+"to": [26, 14, 6],
+"block": "sail"
+},
+{
+"op": "line",
+"from": [10, 13, 6],
+"to": [10, 17, 6],
+"block": "mast"
+},
+{
+"op": "line",
+"from": [17, 14, 6],
+"to": [17, 18, 6],
+"block": "mast"
+},
+{
+"op": "line",
+"from": [25, 12, 6],
+"to": [25, 15, 6],
+"block": "mast"
+},
+{
+"op": "line",
+"from": [10, 7, 3],
+"to": [10, 13, 3],
+"block": "mast"
+},
+{
+"op": "line",
+"from": [10, 7, 9],
+"to": [10, 13, 9],
+"block": "mast"
+},
+{
+"op": "line",
+"from": [17, 7, 3],
+"to": [17, 14, 3],
+"block": "mast"
+},
+{
+"op": "line",
+"from": [17, 7, 9],
+"to": [17, 14, 9],
+"block": "mast"
+},
+{
+"op": "line",
+"from": [25, 8, 3],
+"to": [25, 12, 3],
+"block": "mast"
+},
+{
+"op": "line",
+"from": [25, 8, 9],
+"to": [25, 12, 9],
+"block": "mast"
+},
+{
+"op": "set",
+"at": [0, 6, 6],
+"block": "lantern"
+},
+{
+"op": "set",
+"at": [33, 13, 4],
+"block": "lantern"
+},
+{
+"op": "set",
+"at": [33, 13, 8],
+"block": "lantern"
+},
+{
+"op": "set",
+"at": [29, 9, 2],
+"block": "detail"
+},
+{
+"op": "set",
+"at": [29, 9, 10],
+"block": "detail"
+},
+{
+"op": "set",
+"at": [31, 9, 6],
+"block": "detail"
+}
+]
+}

@@ -1,0 +1,126 @@
+{
+  "version": "1.0",
+  "mc_version": "1.20.4",
+  "name": "Modern Warship",
+  "size": {
+    "x": 7,
+    "y": 8,
+    "z": 21
+  },
+  "palette": {
+    "hull": "stone",
+    "deck": "iron_block",
+    "structure": "iron_block",
+    "glass": "light_blue_stained_glass",
+    "barrel": "oak_fence",
+    "radar": "oak_fence",
+    "vls": "stone_button",
+    "helipad": "white_stained_glass"
+  },
+  "ops": [
+    {
+      "op": "box",
+      "from": [2, 0, 2],
+      "to": [4, 1, 18],
+      "block": "hull"
+    },
+    {
+      "op": "line",
+      "from": [1, 1, 2],
+      "to": [1, 1, 17],
+      "block": "hull"
+    },
+    {
+      "op": "line",
+      "from": [5, 1, 2],
+      "to": [5, 1, 17],
+      "block": "hull"
+    },
+    {
+      "op": "line",
+      "from": [3, 0, 19],
+      "to": [3, 1, 19],
+      "block": "hull"
+    },
+    {
+      "op": "box",
+      "from": [2, 2, 2],
+      "to": [4, 2, 18],
+      "block": "deck"
+    },
+    {
+      "op": "line",
+      "from": [1, 2, 2],
+      "to": [1, 2, 17],
+      "block": "deck"
+    },
+    {
+      "op": "line",
+      "from": [5, 2, 2],
+      "to": [5, 2, 17],
+      "block": "deck"
+    },
+    {
+      "op": "set",
+      "at": [3, 2, 19],
+      "block": "deck"
+    },
+    {
+      "op": "box",
+      "from": [2, 3, 8],
+      "to": [4, 4, 13],
+      "block": "structure"
+    },
+    {
+      "op": "box",
+      "from": [2, 3, 6],
+      "to": [4, 3, 7],
+      "block": "structure"
+    },
+    {
+      "op": "line",
+      "from": [2, 4, 13],
+      "to": [4, 4, 13],
+      "block": "glass"
+    },
+    {
+      "op": "line",
+      "from": [3, 5, 10],
+      "to": [3, 7, 10],
+      "block": "radar"
+    },
+    {
+      "op": "line",
+      "from": [2, 6, 10],
+      "to": [4, 6, 10],
+      "block": "radar"
+    },
+    {
+      "op": "set",
+      "at": [3, 3, 16],
+      "block": "structure"
+    },
+    {
+      "op": "line",
+      "from": [3, 3, 17],
+      "to": [3, 3, 18],
+      "block": "barrel"
+    },
+    {
+      "op": "set",
+      "at": [3, 3, 14],
+      "block": "vls"
+    },
+    {
+      "op": "set",
+      "at": [3, 3, 15],
+      "block": "vls"
+    },
+    {
+      "op": "box",
+      "from": [2, 2, 2],
+      "to": [4, 2, 4],
+      "block": "helipad"
+    }
+  ]
+}

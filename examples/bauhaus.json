@@ -1,0 +1,78 @@
+{
+  "version": "1.0",
+  "mc_version": "1.20.4",
+  "name": "bauhaus_modern_villa",
+  "size": {
+    "x": 35,
+    "y": 20,
+    "z": 35
+  },
+  "palette": {
+    "ground": "smooth_stone",
+    "pool_light": "glowstone",
+    "pool_water": "light_blue_stained_glass",
+    "deck": "oak_planks",
+    "pillar": "quartz_pillar",
+    "white_wall": "quartz_block",
+    "floor_wood": "birch_planks",
+    "glass": "glass",
+    "dark_wall": "polished_deepslate",
+    "concrete_canopy": "smooth_stone",
+    "railing": "iron_bars",
+    "greenery": "mossy_cobblestone",
+    "light": "glowstone",
+    "stairs": "quartz_stairs"
+  },
+  "ops": [
+    { "op": "box", "from": [0, 0, 0], "to": [34, 0, 34], "block": "ground" },
+
+    { "op": "box", "from": [2, 1, 2], "to": [25, 1, 20], "block": "deck" },
+    { "op": "box", "from": [4, 0, 4], "to": [12, 0, 16], "block": "pool_light" },
+    { "op": "box", "from": [4, 1, 4], "to": [12, 1, 16], "block": "pool_water" },
+
+    { "op": "box", "from": [15, 1, 5], "to": [15, 4, 5], "block": "pillar" },
+    { "op": "box", "from": [22, 1, 5], "to": [22, 4, 5], "block": "pillar" },
+    { "op": "box", "from": [29, 1, 5], "to": [29, 4, 5], "block": "pillar" },
+    { "op": "box", "from": [15, 1, 14], "to": [15, 4, 14], "block": "pillar" },
+    { "op": "box", "from": [22, 1, 14], "to": [22, 4, 14], "block": "pillar" },
+    { "op": "box", "from": [29, 1, 14], "to": [29, 4, 14], "block": "pillar" },
+
+    { "op": "set", "at": [15, 4, 5], "block": "light" },
+    { "op": "set", "at": [22, 4, 5], "block": "light" },
+    { "op": "set", "at": [29, 4, 5], "block": "light" },
+    { "op": "set", "at": [15, 4, 14], "block": "light" },
+    { "op": "set", "at": [22, 4, 14], "block": "light" },
+    { "op": "set", "at": [29, 4, 14], "block": "light" },
+
+    { "op": "box_hollow", "from": [14, 5, 4], "to": [30, 11, 15], "block": "white_wall" },
+    { "op": "box", "from": [14, 5, 4], "to": [30, 5, 15], "block": "floor_wood" },
+    
+    { "op": "box", "from": [14, 7, 4], "to": [29, 9, 4], "block": "glass" },
+    { "op": "box", "from": [14, 7, 15], "to": [25, 9, 15], "block": "glass" },
+    { "op": "box", "from": [30, 7, 5], "to": [30, 9, 14], "block": "glass" },
+
+    { "op": "box_hollow", "from": [6, 1, 15], "to": [18, 17, 30], "block": "dark_wall" },
+    { "op": "box", "from": [6, 6, 15], "to": [18, 6, 30], "block": "floor_wood" },
+    { "op": "box", "from": [6, 12, 15], "to": [18, 12, 30], "block": "floor_wood" },
+    { "op": "box", "from": [6, 17, 15], "to": [18, 17, 30], "block": "dark_wall" },
+
+    { "op": "box", "from": [6, 2, 20], "to": [6, 15, 28], "block": "glass" },
+
+    { "op": "box", "from": [18, 5, 20], "to": [32, 5, 30], "block": "concrete_canopy" },
+    { "op": "box", "from": [32, 1, 20], "to": [32, 4, 20], "block": "pillar" },
+    { "op": "box", "from": [32, 1, 30], "to": [32, 4, 30], "block": "pillar" },
+    { "op": "set", "at": [25, 4, 25], "block": "light" },
+
+    { "op": "box", "from": [12, 11, 2], "to": [32, 11, 16], "block": "white_wall" },
+
+    { "op": "line", "from": [12, 12, 2], "to": [32, 12, 2], "block": "railing" },
+    { "op": "line", "from": [32, 12, 2], "to": [32, 12, 16], "block": "railing" },
+    { "op": "line", "from": [12, 12, 2], "to": [12, 12, 16], "block": "railing" },
+
+    { "op": "box", "from": [14, 12, 4], "to": [18, 12, 6], "block": "greenery" },
+    { "op": "box", "from": [2, 1, 22], "to": [5, 1, 32], "block": "greenery" },
+
+    { "op": "box", "from": [10, 1, 16], "to": [12, 5, 18], "block": "stairs" },
+    { "op": "box", "from": [10, 6, 16], "to": [12, 11, 18], "block": "stairs" }
+  ]
+}
