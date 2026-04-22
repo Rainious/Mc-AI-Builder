@@ -99,6 +99,19 @@ def _export_to_mcschematic(
     return outdir / f"{schem_name}.schem"
 
 
+def export_placements_to_schem(
+    placements: Any,
+    outdir: Path,
+    schem_name: str,
+) -> Path:
+    """Validate placements and export them to a .schem file."""
+    if not isinstance(placements, list):
+        raise ExportSchemError("Compiled placement root must be a JSON array")
+
+    normalized = [_validate_one_placement(item, i) for i, item in enumerate(placements)]
+    return _export_to_mcschematic(normalized, outdir, schem_name)
+
+
 def _derive_schem_name(input_path: Path, explicit_name: str | None) -> str:
     """Choose schematic name from CLI option or input filename stem."""
     name = explicit_name or input_path.stem
@@ -121,7 +134,7 @@ def main() -> int:
     try:
         placements = _load_compiled_placements(input_path)
         schem_name = _derive_schem_name(input_path, args.name)
-        output_path = _export_to_mcschematic(placements, outdir, schem_name)
+        output_path = export_placements_to_schem(placements, outdir, schem_name)
     except ExportSchemError as exc:
         print(f"Error: {exc}", file=sys.stderr)
         return 1
