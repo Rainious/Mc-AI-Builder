@@ -117,12 +117,19 @@ def _extract_json_from_text(raw_text: str) -> Any:
         raise NaturalBuildError(f"Failed to parse JSON from fenced model response: {exc}") from exc
 
 
-def _extract_buildspec_from_response(response_json: Any) -> Any:
+def _required_fields_from_schema(schema_data: Any) -> set[str]:
+    """Return required top-level fields from schema when available."""
+    if isinstance(schema_data, dict):
+        required = schema_data.get("required")
+        if isinstance(required, list) and all(isinstance(item, str) for item in required):
+            return set(required)
+    return {"version", "mc_version", "name", "size", "palette", "ops"}
+
+
+def _extract_buildspec_from_response(response_json: Any, required_fields: set[str]) -> Any:
     """Extract BuildSpec JSON from common model API response formats."""
     # Some APIs return raw BuildSpec object directly.
-    if isinstance(response_json, dict) and {"version", "mc_version", "name", "size", "palette", "ops"}.issubset(
-        response_json.keys()
-    ):
+    if isinstance(response_json, dict) and required_fields.issubset(response_json.keys()):
         return response_json
 
     if isinstance(response_json, dict):
@@ -232,13 +239,14 @@ def generate_and_export_schematic(
 
     # Step 3-4: Call model API and extract BuildSpec JSON from response.
     response_json = _post_json(model_url, payload, api_key=api_key, timeout=timeout)
-    generated_spec = _extract_buildspec_from_response(response_json)
+    required_fields = _required_fields_from_schema(schema_data)
+    generated_spec = _extract_buildspec_from_response(response_json, required_fields)
 
     # Step 5: Validate generated BuildSpec locally before export.
     _validate_generated_buildspec(generated_spec, schema_data, allowed_blocks)
 
     # Step 6: Save generated BuildSpec to a temporary JSON file.
-    temp_dir = tempfile.mkdtemp(prefix="mc_ai_builder_")
+    temp_dir = tempfile.mkdtemp(prefix="minecraft_ai_builder_")
     temp_path = Path(temp_dir) / "generated_buildspec.json"
     try:
         temp_path.write_text(json.dumps(generated_spec, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
@@ -266,6 +274,7 @@ def generate_and_export_schematic(
             temp_path.unlink(missing_ok=True)
             temp_path.parent.rmdir()
         except OSError:
+            # Cleanup is best-effort only; generation already succeeded.
             pass
 
     return schem_path, temp_path
