@@ -18,7 +18,7 @@ from jsonschema import ValidationError as JsonSchemaValidationError
 from jsonschema import validate as validate_json_schema
 
 from main import run_pipeline
-from validate_spec import load_block_catalog, validate_buildspec
+from validate_spec import REQUIRED_FIELDS, load_block_catalog, validate_buildspec
 
 
 class NaturalBuildError(Exception):
@@ -123,7 +123,8 @@ def _required_fields_from_schema(schema_data: Any) -> set[str]:
         required = schema_data.get("required")
         if isinstance(required, list) and all(isinstance(item, str) for item in required):
             return set(required)
-    return {"version", "mc_version", "name", "size", "palette", "ops"}
+    # Fallback to the validator's required fields to keep behavior consistent.
+    return set(REQUIRED_FIELDS)
 
 
 def _extract_buildspec_from_response(response_json: Any, required_fields: set[str]) -> Any:
@@ -267,15 +268,15 @@ def generate_and_export_schematic(
         )
     except Exception as exc:
         raise NaturalBuildError(f"Pipeline failed while creating schematic: {exc}") from exc
-
-    # Remove temp file by default, unless requested to keep it for debugging.
-    if not keep_temp:
-        try:
-            temp_path.unlink(missing_ok=True)
-            temp_path.parent.rmdir()
-        except OSError:
-            # Cleanup is best-effort only; generation already succeeded.
-            pass
+    finally:
+        # Remove temp file by default, unless requested to keep it for debugging.
+        if not keep_temp:
+            try:
+                temp_path.unlink(missing_ok=True)
+                temp_path.parent.rmdir()
+            except OSError:
+                # Cleanup is best-effort only; generation may have already succeeded/failed.
+                pass
 
     return schem_path, temp_path
 
