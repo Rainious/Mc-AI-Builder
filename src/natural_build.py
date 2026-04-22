@@ -6,6 +6,7 @@ import argparse
 import json
 import os
 import re
+import socket
 import sys
 import tempfile
 import urllib.error
@@ -177,7 +178,7 @@ def _post_json(url: str, payload: dict[str, Any], api_key: str | None, timeout: 
         raise NaturalBuildError(f"Model API HTTP error {exc.code}: {error_text}") from exc
     except urllib.error.URLError as exc:
         raise NaturalBuildError(f"Failed to reach model API: {exc.reason}") from exc
-    except TimeoutError as exc:
+    except socket.timeout as exc:
         raise NaturalBuildError("Timed out waiting for model API response") from exc
 
     try:
@@ -259,7 +260,7 @@ def generate_and_export_schematic(
     except Exception as exc:
         raise NaturalBuildError(f"Pipeline failed while creating schematic: {exc}") from exc
 
-    # Keep temp file by default if requested, otherwise remove it after success.
+    # Remove temp file by default, unless requested to keep it for debugging.
     if not keep_temp:
         try:
             temp_path.unlink(missing_ok=True)
@@ -315,4 +316,3 @@ def main() -> int:
 
 if __name__ == "__main__":
     sys.exit(main())
-
