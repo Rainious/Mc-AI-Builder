@@ -60,7 +60,7 @@ def _build_request_payload(
     catalog_data: Any,
     model: str | None,
     temperature: float,
-    include_schema_response_format: bool,
+    response_format_mode: str,
 ) -> dict[str, Any]:
     """Create an OpenAI-compatible chat-completions payload."""
     system_prompt = (
@@ -86,7 +86,11 @@ def _build_request_payload(
         ],
         "temperature": temperature,
     }
-    if include_schema_response_format:
+    # Compatibility strategy:
+    # - json_schema: best for providers that support schema-constrained decoding.
+    # - json_object: required by DeepSeek for JSON mode compatibility.
+    # - prompt_only: no response_format; rely on prompt + local validation.
+    if response_format_mode == "json_schema":
         payload["response_format"] = {
             "type": "json_schema",
             "json_schema": {
@@ -94,9 +98,39 @@ def _build_request_payload(
                 "schema": schema_data,
             },
         }
+    elif response_format_mode == "json_object":
+        payload["response_format"] = {"type": "json_object"}
+    elif response_format_mode != "prompt_only":
+        raise NaturalBuildError(
+            "Invalid response format mode. Use one of: json_schema, json_object, prompt_only"
+        )
     if model:
         payload["model"] = model
     return payload
+
+
+def _resolve_response_format_mode(
+    model_url: str,
+    response_format_mode: str | None,
+    include_schema_response_format: bool,
+) -> str:
+    """Resolve response_format mode from explicit setting, legacy flag, and provider defaults."""
+    if response_format_mode is not None:
+        return response_format_mode
+
+    # Backward-compatible override from existing CLI flag.
+    if not include_schema_response_format:
+        return "prompt_only"
+
+    lower_url = model_url.lower()
+    # DeepSeek's chat-completions compatibility expects json_object mode.
+    if "deepseek" in lower_url:
+        return "json_object"
+    # Keep OpenAI as schema-first baseline.
+    if "openai" in lower_url:
+        return "json_schema"
+    # Unknown providers: omit response_format for broad compatibility.
+    return "prompt_only"
 
 
 def _extract_json_from_text(raw_text: str) -> Any:
@@ -243,6 +277,7 @@ def generate_and_export_schematic(
     keep_temp: bool = False,
     temperature: float = 0.2,
     include_schema_response_format: bool = True,
+    response_format_mode: str | None = None,
 ) -> tuple[Path, Path]:
     """Run natural language to .schem pipeline and return (.schem path, temp JSON path)."""
     resolved_schema_path = schema_path or _default_schema_path()
@@ -255,13 +290,18 @@ def generate_and_export_schematic(
     allowed_blocks = _allowed_blocks_from_catalog_data(catalog_data)
 
     # Step 2: Build API payload containing prompt + schema + catalog context.
+    resolved_response_format_mode = _resolve_response_format_mode(
+        model_url=model_url,
+        response_format_mode=response_format_mode,
+        include_schema_response_format=include_schema_response_format,
+    )
     payload = _build_request_payload(
         description=description,
         schema_data=schema_data,
         catalog_data=catalog_data,
         model=model,
         temperature=temperature,
-        include_schema_response_format=include_schema_response_format,
+        response_format_mode=resolved_response_format_mode,
     )
 
     # Step 3-4: Call model API and extract BuildSpec JSON from response.
@@ -331,7 +371,16 @@ def main() -> int:
     parser.add_argument(
         "--no-schema-response-format",
         action="store_true",
-        help="Disable OpenAI-style JSON schema response_format in API payload",
+        help="Legacy switch to force prompt_only mode (no response_format)",
+    )
+    parser.add_argument(
+        "--response-format-mode",
+        choices=("json_schema", "json_object", "prompt_only"),
+        default=None,
+        help=(
+            "Optional response_format compatibility mode. "
+            "Default: provider-aware auto mode (DeepSeek=json_object, OpenAI=json_schema, others=prompt_only)."
+        ),
     )
     parser.add_argument("--keep-temp", action="store_true", help="Keep generated temporary BuildSpec JSON file")
     args = parser.parse_args()
@@ -354,6 +403,7 @@ def main() -> int:
             keep_temp=args.keep_temp,
             temperature=args.temperature,
             include_schema_response_format=not args.no_schema_response_format,
+            response_format_mode=args.response_format_mode,
         )
     except NaturalBuildError as exc:
         print(f"Error: {exc}", file=sys.stderr)
