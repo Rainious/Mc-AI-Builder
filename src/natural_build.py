@@ -11,6 +11,7 @@ import socket
 import sys
 import tempfile
 import urllib.error
+import urllib.parse
 import urllib.request
 from pathlib import Path
 from typing import Any
@@ -122,12 +123,18 @@ def _resolve_response_format_mode(
     if not include_schema_response_format:
         return "prompt_only"
 
-    lower_url = model_url.lower()
+    parsed = urllib.parse.urlparse(model_url)
+    host = (parsed.hostname or "").lower()
+    if not host and "://" not in model_url:
+        # Support host-like endpoints (for example: api.deepseek.com/v1/chat/completions).
+        parsed_with_scheme = urllib.parse.urlparse(f"https://{model_url}")
+        host = (parsed_with_scheme.hostname or "").lower()
+
     # DeepSeek's chat-completions compatibility expects json_object mode.
-    if "deepseek" in lower_url:
+    if host == "deepseek.com" or host.endswith(".deepseek.com"):
         return "json_object"
     # Keep OpenAI as schema-first baseline.
-    if "openai" in lower_url:
+    if host == "openai.com" or host.endswith(".openai.com"):
         return "json_schema"
     # Unknown providers: omit response_format for broad compatibility.
     return "prompt_only"
@@ -371,7 +378,7 @@ def main() -> int:
     parser.add_argument(
         "--no-schema-response-format",
         action="store_true",
-        help="Legacy switch to force prompt_only mode (no response_format)",
+        help="Deprecated legacy switch to force prompt_only mode (prefer --response-format-mode)",
     )
     parser.add_argument(
         "--response-format-mode",
